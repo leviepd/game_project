@@ -1,7 +1,29 @@
 <script>
-alert("Welcome to coin Toss!");
 
+var coinGame = alert("Welcome to coin Flip. Best two out of three wins the tournament!");
+var wins = 0;
+var loss = 0;
+for (i = 0; i < 3; i++) {
 
+var num = Math.random();
 
-
+var choice = prompt("Pick heads, or Tails").toUpperCase();
+var coin =(num < 0.5) ? "HEADS": "TAILS";  //Ternary Operator
+//conditon ? value-if-true : value-if-false
+if (choice === coin) {  //confusing... tails === tails || heads === heads
+	alert("It was " + coin + ", you win the flip!");
+	wins = wins + 1;
+	} else {
+	alert("It was " + coin + ", you loose the flip!");
+	loss = loss + 1;
+};
+if (wins >=  2) {
+	alert("Congrats! You win the tournament!");
+	break;
+} 
+if(loss >= 2 ) {
+    alert("You loose the tournament");
+    break;
+}
+};
 </script>
