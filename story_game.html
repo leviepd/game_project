@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>Text Adventure 1.0 ("BAD CODING") "The Haunted House"</p>
+<script>
+var intro = alert("Welcome to The Haunted House text adventure game. Please continue by clicking Okay");
+var character_select = prompt("Please choose between the following characters... Calvin: The annoying Blonde with the red heart, mom tattoo. Brenda: The tall lanky Burnette with the Binocular Glasses... OR Goerge: The tall muscular quarterback wearing the 'bro tank'").toUpperCase(); 
+
+if (character_select === "CALVIN" || character_select === "BRENDA" || character_select === "GOERGE") {
+	alert("Great choice!")
+	};
+
+var wakeUp = function () {
+	return prompt("You wake up in on a cold concrete floor. Your whole body is frozen. Everything is black... no light whatsoever... You can GET UP, or SEARCH the surrounding floor on your hands and knees").toUpperCase();
+	}; // returns "SEARCH", or "GET UP"
+		
+var noseBreak = function () {
+	return prompt("You feel aweful... do you LAY DOWN and rest, or STAND UP again anyway?").toUpperCase();
+	}; // returns "LAY DOWN", or "GET UP"
+
+var light = function () {
+	return prompt("You can TURN ON the flashlight or SEARCH WITHOUT it").toUpperCase();
+	}; // returns "TURN ON", or "SEARCH WITHOUT"
+
+var gameOver = ("Game over! Refresh the page to start over");
+
+var ground_kill =  ("The ground is freezing cold. Your bones feel like ice and your face is on fire. Something is terribly wrong about this place... all of the sudden you hear a loud screech.... CRUNCH! CRACK! You die..."); 
+
+var up_kill = ("You struggle to stand up... You hear a growl... CRUNCH! CRACK! You die...");
+
+for (i = 0; i < 21; i++) {
+
+	var wake_up = wakeUp();
+		
+		if (wake_up  === "GET UP") {
+			alert("You find yourself dizzy. You fall flat on your face and CRACK! ... your nose is definitely broken");
+			
+			for (ii = 0; ii < 21; ii++) {
+				
+				var nose_break = noseBreak();
+
+			if (nose_break  === "STAND UP") {
+		 			alert(up_kill);
+				   	alert(gameOver);
+					i = 22; 
+					break;
+					
+			}
+			
+			if (nose_break  === "LAY DOWN") {
+					alert(ground_kill);			
+					alert(gameOver);
+					i = 22;
+					break;
+			}
+
+			if (nose_break !== "STAND UP" && nose_break !== "LAY DOWN") {
+				
+				alert("Sorry that was not an option");
+			}
+		}
+	}	
+		
+		if (wake_up  === "SEARCH") {
+			alert("You stumble around the floor. You feel around... you find something... a Flashlight!");
+			
+			for (iii = 0; iii < 21; iii++) {
+			
+				var light_ = light();
+
+			if(light_ === "TURN ON") {
+				
+					alert("You turn the light on... standing in front of you is what looks to be a giant dog with fangs like daggers... CRUNCH! you die...");
+					alert(gameOver);
+					i = 22;
+					break;
+			}		
+			
+			if(light_ === "SEARCH WITHOUT") { 
+					alert("You stumble around in the dar and end up alongside a wall.... you follow the wall until you discover a door... You open the door that leads you outside. You are safe!");
+					alert("CONGRATS YOU WIN THE GAME");
+					i = 22;
+					break;
+			 }
+			 
+			 if (light_ !== "TURN ON" && light_ !== "SEARCH WITHOUT") {
+			 		alert("Sorry that was not an option.");
+			 }
+		 }
+	}
+		 if (wake_up !== "GET UP" && wake_up !== "SEARCH") {
+
+			alert("Sorry that was not an option");
+	    } 
+};
+//	};
+
+//shell1();
+
+/*
+if (wake_up !== "GET UP" || wake_up !== "SEARCH") {
+ 		alert("Sorry that was not an option");
+     	shell1();
+	  };  
+
+while (wake_up !== "GET UP" || wake_ up !== "SEARCH") {
+		alert("Sorry that was not at option");
+		shell1();
+	};
+*/
+
+</script>
+
+</body>
+</html>
