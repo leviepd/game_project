@@ -7,6 +7,58 @@
 
 <script>
 
+/*
+
+
+	// traditional object construction
+	function Foo(n) {
+		this.x = n;
+		this.get_x = function() {				// a function that is often called a "method"
+			return this.x;
+		}
+	}
+	foo = new Foo(7);		// foo.x == 7
+	x = foo.get_x();		// x == 7
+
+
+	// this is what's actually happening when you do "foo = new Foo(7)";
+	n = 7;
+	o = {}
+	foo = Foo.call(o, n);		// o is the object that the function will see as "this"
+
+
+	// joe's alternative
+	foo = {}
+	foo.x = 7;
+	foo.get_x = function() {
+		return this.x;
+	}
+	x = foo.get_x(); 			// foo.get_x.call(foo);
+
+
+
+	// java like class shit
+	class Foo {
+		var x;
+		Foo() {
+			x = 7;
+		}
+
+		Foo test() {
+			return this;
+		}
+	}
+
+	void blah(someargs) {
+		foo = new Foo();
+		foo.x;		// 7
+		y = foo.test();		// y == 7
+	}
+
+
+
+*/
+
 alert("Welcome to The Haunted House text adventure game. Please click okay to continue");
 
 var gameOver = "Game over! Refresh the page to start over";
@@ -153,29 +205,7 @@ if (choice_1 === "GET UP") {
 
 	alert(choice_1);
 	
-	}
-/*
-	alert("You stumble around the floor. You feel around... you find something... a Flashlight!");
-
-	var choice_2.1 = block2.1();
-
-		if (choice_2.1 === "TURN ON") {
-		
-			alert("You turn the light on... standing in front of you is what looks to be a giant dog with fangs like daggers... CRUNCH! you die...");
-			alert(gameOver);
-		
-		}
-
-		if (choice_2.1 === "SEARCH WITHOUT") {
-			
-			alert("You stumble around in the dar and end up alongside a wall.... you follow the wall until you discover a door... You open the door that leads you outside. You are safe!");
-			alert("CONGRATS YOU WIN THE GAME!");
-
-		}
-
 }
-
-*/
 
 </script>
 
