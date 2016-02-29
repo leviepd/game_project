@@ -86,26 +86,6 @@ var block3a = function () {
 	}
 };
 
-/*
-var choice_3aRevert = function () {
-	alert("You gain some energy and may be able to stand up to search the area.");
-	for (i = 0; i <= 20; i++) {
-		
-		var choice_3 = block3();
-
-		if (choice_3 === "STAND UP") {
-			
-			alert(choice_3);
-		}
-
-		if (choice_3 === "SEARCH") {
-
-			alert(choice_3);
-
-		}
-	}
-};
-*/
 
 var choice_1  = block1();
 
@@ -123,7 +103,7 @@ if (choice_1 === "GET UP") {
 
 				if (choice_3 === "STAND UP") {
 
-					alert(choice3);
+					alert(choice_3);
 			
 				}
 
@@ -140,9 +120,9 @@ if (choice_1 === "GET UP") {
 			var choice_3a = block3a();  // too tired must "REST"
 		
 				if(choice_3a === "REST") {
-					
-				//	choice_3aRevert();
 
+					alert("You had an awesome rest!");
+				
 				}
 			
 		}	
