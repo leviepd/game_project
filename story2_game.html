@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<p>Text Adventure 1.1 ("NOT AS BAD CODING") "The Haunted House"</p>
+
+<script>
+
+alert("Welcome to The Haunted House text adventure game. Please click okay to continue");
+
+var promptIn = function (insert) {
+	return prompt (insert).toUpperCase();
+}; 
+
+// return "GET UP", "SEARCH", "LAY DOWN", "STAND UP", "TURN ON", or "SEARCH WITHOUT"
+
+var prompt1 = "You wake up in on a cold concrete floor. Your whole body is frozen. Everything is black... no light whatsoever... You can GET UP, or SEARCH the surrounding floor on your hands and knees";
+
+var prompt2 = "You feel aweful... do you LAY DOWN and rest, or STAND UP again anyway?";
+
+var prompt3 = "You can TURN ON the flashlight or SEARCH WITHOUT it";
+
+var state1 = function (choice1) {
+	for (i = 0; i <= 20; i++) {
+		if (choice1 === "GET UP" && "SEARCH") {
+		
+			var choice_1 = choice1;	
+		 	return choice_1;
+			break;
+		} 
+
+		else {
+			alert("Sorry, that was not an option");
+			promptIn(prompt1);
+			
+		}
+	}	
+}
+state1(promptIn(prompt1));
+alert(choice_1);
+var state2 = function () {
+
+}
+
+</script>
+
+</body>
+
+</html>
