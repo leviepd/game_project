@@ -9,98 +9,164 @@
 
 alert("Welcome to The Haunted House text adventure game. Please click okay to continue");
 
-var ground_kill =  "The ground is freezing cold. Your bones feel like ice and your face is on fire. Something is terribly wrong about this place... all of the sudden you hear a loud screech.... CRUNCH! CRACK! You die...";
-
-var up_kill = "You struggle to stand up... You hear a growl... CRUNCH! CRACK! You die...";
-
 var gameOver = "Game over! Refresh the page to start over";
 
 var promptIn = function (insert) {
 	return prompt (insert).toUpperCase();
 }; 
 
-// return "GET UP", "SEARCH", "LAY DOWN", "STAND UP", "TURN ON", or "SEARCH WITHOUT"
+// returns the string inserted into the prompt
 
-var prompt1 = "You wake up in on a cold concrete floor. Your whole body is frozen. Everything is black... no light whatsoever... You can GET UP, or SEARCH the surrounding floor on your hands and knees";
+var prompt1 = "You wake up on a cold concrete floor, frozen. Everything is black... no light whatsoever... GET UP and search the surrounding area, or SEARCH the area on your hands and knees";
 
-var prompt2 = "You feel aweful... do you LAY DOWN and rest, or STAND UP again anyway?";
+var prompt2 = "You feel aweful... REST for 10 min, or SEARCH the area on your hands and knees.";
 
-var prompt3 = "You can TURN ON the flashlight or SEARCH WITHOUT it";
+var prompt2a = "You can TURN ON the flashlight, or SEARCH WITHOUT it.";
 
-var state1 = function () {
+var prompt3 = "STAND UP and search the area, or SEARCH on your hands and knees.";
+
+var prompt3a = "You are still feeling extremely weak. You must REST.";
+
+var block1  = function () {
 	for (i = 0; i <= 20; i++) {
 
 		var choice1 = promptIn(prompt1);
 
 		if (choice1 === "GET UP" || choice1 === "SEARCH") {
-			
+		
 		 	return choice1;
 		} 
 	}	
-}
+};
 
-var state2 = function () {
+var block2 = function () {
 	for (i = 0; i <= 20; i++) {
 	
 		var choice2 = promptIn(prompt2);
 
-		if (choice2 === "LAY DOWN" || choice2 === "STAND UP") {
+		if (choice2 === "REST" || choice2 === "SEARCH") {
 			
 			return choice2;
 		}
 	}
-}
+};
 
-var state3 = function () {
+var block2a = function () {
+	for (i = 0; i <= 20; i++) {
+		
+		var choice2a = promptIn(prompt2a);
+
+		if (choice2a === "TURN ON" || choice2a === "SEARCH WITHOUT") {
+			
+			return choice2a;
+		}
+	}
+};
+
+var block3 = function () {
 	for (i = 0; i <= 20; i++) {
 		
 		var choice3 = promptIn(prompt3);
 
-		if (choice3 === "TURN ON" || choice3 === "SEARCH WITHOUT") {
+		if (choice3 === "STAND UP" || choice3 === "SEARCH") {
 			
 			return choice3;
 		}
 	}
-}
+};
 
-var choice_1  = state1();
+var block3a = function () {
+	for (i = 0; i <= 20; i++) {
+		
+		var choice3a = promptIn(prompt3a);
+
+		if (choice3a === "REST") {
+			return choice3a;
+		}
+	}
+};
+
+/*
+var choice_3aRevert = function () {
+	alert("You gain some energy and may be able to stand up to search the area.");
+	for (i = 0; i <= 20; i++) {
+		
+		var choice_3 = block3();
+
+		if (choice_3 === "STAND UP") {
+			
+			alert(choice_3);
+		}
+
+		if (choice_3 === "SEARCH") {
+
+			alert(choice_3);
+
+		}
+	}
+};
+*/
+
+var choice_1  = block1();
 
 if (choice_1 === "GET UP") {
 
-	alert("You find yourself dizzy. You fall flat on your face and CRACK! ... your nose is definitely broken");
+	alert("Standing up wasn't a good idea. You realize you are extremely weak. You sit back down.");
 	
-	var choice_2 = state2();
+	var choice_2 = block2();  // "REST" or "SEARCH" on hands and knees
 
-		if (choice_2 === "LAY DOWN") {
+		if (choice_2 === "REST") {
 			
-			alert(ground_kill);
-			alert(gameOver);
+			alert("You gain some energy and may be able to stand up to search the area");
+			
+			var choice_3 = block3();  // Once "REST" ... "STAND UP" to search, or "SEARCH" on hands and knees
+
+				if (choice_3 === "STAND UP") {
+
+					alert(choice3);
+			
+				}
+
+				if (choice_3 === "SEARCH") {
+					
+					alert(choice_3);
+			
+				}
 
 		}
 
-		if (choice_2 === "STAND UP") {
+		if (choice_2 === "SEARCH") {
 			
-			alert(up_kill);
-			alert(gameOver);
+			var choice_3a = block3a();  // too tired must "REST"
 		
-		}
+				if(choice_3a === "REST") {
+					
+				//	choice_3aRevert();
+
+				}
+			
+		}	
 
 }
 
-if (choice_1 === "SEARCH") {
+ if (choice_1 === "SEARCH") {
 
+	alert(choice_1);
+	
+	}
+/*
 	alert("You stumble around the floor. You feel around... you find something... a Flashlight!");
 
-	var choice_3 = state3();
+	var choice_2.1 = block2.1();
 
-		if (choice_3 === "TURN ON") {
+		if (choice_2.1 === "TURN ON") {
 		
 			alert("You turn the light on... standing in front of you is what looks to be a giant dog with fangs like daggers... CRUNCH! you die...");
 			alert(gameOver);
 		
 		}
 
-		if (choice_3 === "SEARCH WITHOUT") {
+		if (choice_2.1 === "SEARCH WITHOUT") {
 			
 			alert("You stumble around in the dar and end up alongside a wall.... you follow the wall until you discover a door... You open the door that leads you outside. You are safe!");
 			alert("CONGRATS YOU WIN THE GAME!");
@@ -109,9 +175,7 @@ if (choice_1 === "SEARCH") {
 
 }
 
-//var state_2 = state2();
-
-//var state_3 = state3();
+*/
 
 </script>
 
