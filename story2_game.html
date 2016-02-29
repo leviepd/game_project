@@ -21,24 +21,21 @@ var prompt2 = "You feel aweful... do you LAY DOWN and rest, or STAND UP again an
 
 var prompt3 = "You can TURN ON the flashlight or SEARCH WITHOUT it";
 
-var state1 = function (choice1) {
+var state1 = function () {
 	for (i = 0; i <= 20; i++) {
-		if (choice1 === "GET UP" && "SEARCH") {
-		
-			var choice_1 = choice1;	
-		 	return choice_1;
-			break;
-		} 
 
-		else {
-			alert("Sorry, that was not an option");
-			promptIn(prompt1);
+		var choice1 = promptIn(prompt1);
+
+		if (choice1 === "GET UP" || choice1 === "SEARCH") {
 			
-		}
+			alert(choice1);
+		 	return choice1;
+		} 
 	}	
 }
-state1(promptIn(prompt1));
-alert(choice_1);
+
+state1();
+
 var state2 = function () {
 
 }
