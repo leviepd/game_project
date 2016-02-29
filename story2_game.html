@@ -9,6 +9,12 @@
 
 alert("Welcome to The Haunted House text adventure game. Please click okay to continue");
 
+var ground_kill =  "The ground is freezing cold. Your bones feel like ice and your face is on fire. Something is terribly wrong about this place... all of the sudden you hear a loud screech.... CRUNCH! CRACK! You die...";
+
+var up_kill = "You struggle to stand up... You hear a growl... CRUNCH! CRACK! You die...";
+
+var gameOver = "Game over! Refresh the page to start over";
+
 var promptIn = function (insert) {
 	return prompt (insert).toUpperCase();
 }; 
@@ -28,17 +34,84 @@ var state1 = function () {
 
 		if (choice1 === "GET UP" || choice1 === "SEARCH") {
 			
-			alert(choice1);
 		 	return choice1;
 		} 
 	}	
 }
 
-state1();
-
 var state2 = function () {
+	for (i = 0; i <= 20; i++) {
+	
+		var choice2 = promptIn(prompt2);
+
+		if (choice2 === "LAY DOWN" || choice2 === "STAND UP") {
+			
+			return choice2;
+		}
+	}
+}
+
+var state3 = function () {
+	for (i = 0; i <= 20; i++) {
+		
+		var choice3 = promptIn(prompt3);
+
+		if (choice3 === "TURN ON" || choice3 === "SEARCH WITHOUT") {
+			
+			return choice3;
+		}
+	}
+}
+
+var choice_1  = state1();
+
+if (choice_1 === "GET UP") {
+
+	alert("You find yourself dizzy. You fall flat on your face and CRACK! ... your nose is definitely broken");
+	
+	var choice_2 = state2();
+
+		if (choice_2 === "LAY DOWN") {
+			
+			alert(ground_kill);
+			alert(gameOver);
+
+		}
+
+		if (choice_2 === "STAND UP") {
+			
+			alert(up_kill);
+			alert(gameOver);
+		
+		}
 
 }
+
+if (choice_1 === "SEARCH") {
+
+	alert("You stumble around the floor. You feel around... you find something... a Flashlight!");
+
+	var choice_3 = state3();
+
+		if (choice_3 === "TURN ON") {
+		
+			alert("You turn the light on... standing in front of you is what looks to be a giant dog with fangs like daggers... CRUNCH! you die...");
+			alert(gameOver);
+		
+		}
+
+		if (choice_3 === "SEARCH WITHOUT") {
+			
+			alert("You stumble around in the dar and end up alongside a wall.... you follow the wall until you discover a door... You open the door that leads you outside. You are safe!");
+			alert("CONGRATS YOU WIN THE GAME!");
+
+		}
+
+}
+
+//var state_2 = state2();
+
+//var state_3 = state3();
 
 </script>
 
