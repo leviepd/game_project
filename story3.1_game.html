@@ -49,13 +49,13 @@ current = block1;
 
 while (true) {
 	alert("You are here: " + current.name);
-	
+    alert(current.disc);	
 	if(gameOver) { break; };
 	
 	go = prompt("What do you want to do?").toLowerCase();
 	
 	if(current.exits[go]) {   // the prompt is the current location
-		current.exits = current.exits[go]
+		current = current.exits[go]
 		if(current.end) { 
 			gameOver = true;
 		}
