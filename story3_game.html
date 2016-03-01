@@ -10,7 +10,7 @@ block1 = {
 };
 
 block2 = {
-	name = "House Entrance"
+	name = "Front Porch"
 };
 
 block1.north = block2;
@@ -27,7 +27,7 @@ while (true) {
 	if (nos === "NORTH" && current.north != undefined) { 
 	// != undefined... (!= undefined is defined?) so is current.north defined somewhere?
 		current = current.north;  // current.north (block1.north? = block2?) ... is this where current.north is defined?
-		alert("hahahahahaha");
+		alert("You are here:" + block2.name);
 	}
  	else
 	if (nos === "SOUTH" && current.south != undefined) {   // don't understand != undefined...
