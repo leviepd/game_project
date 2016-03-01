@@ -51,8 +51,13 @@ while (true) {
 	alert("You are here: " + current.name);
     alert(current.disc);	
 	if(gameOver) { break; };
-	
-	go = prompt("What do you want to do?").toLowerCase();
+	var a = [];
+	for(var k in current.exits) {
+		a.push(k); // puts k into the array
+	}
+	// a = {"north", "south"} etc
+		var x = a.join(", "); // x = "north, south"
+	go = prompt("What do you want to do?" (" + x + ")).toLowerCase();
 	
 	if(current.exits[go]) {   // the prompt is the current location
 		current = current.exits[go]
