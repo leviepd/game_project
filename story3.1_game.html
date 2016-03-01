@@ -40,27 +40,28 @@ block5 = {
 block1.exits.north = block2;
 block2.exits.south = block1;
 block2.exits.north = block3;
-block3.exits.right = block4;
-block3.exits.left = block5;
+block3.exits.right = block4.end;
+block3.exits.left = block5.end;
 
 gameOver = false
 
-current = block1; // what is the point of using current within the while loop? why not just block1?
+current = block1;
 
 while (true) {
 	alert("You are here: " + current.name);
+	
 	if(gameOver) { break; };
+	
 	go = prompt("What do you want to do?").toLowerCase();
 	
-	if(current[go]) {   // the prompt is the current location
-		current = current[go]
-		alert(current.disc);
+	if(current.exits[go]) {   // the prompt is the current location
+		current.exits = current.exits[go]
 		if(current.end) { 
 			gameOver = true;
 		}
 	}
 	else {
-		alert("can't go that way...");  // nos doesn't === north or south
+		alert("can't go that way..."); 
 	}
 
 	/*if(block3.whatever === undefined) {			// "if block.whatever does NOT exist" ...
