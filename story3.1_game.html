@@ -57,7 +57,7 @@ while (true) {
 	}
 	// a = {"north", "south"} etc
 		var x = a.join(", "); // x = "north, south"
-	go = prompt("What do you want to do?" (" + x + ")).toLowerCase();
+	go = prompt("What do you want to do? (" + x + ")").toLowerCase();
 	
 	if(current.exits[go]) {   // the prompt is the current location
 		current = current.exits[go]
