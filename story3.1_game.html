@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<script>
+
+block1 = {
+	name: "Front Yard"
+};
+
+block2 = {
+	name: "Front Porch"
+};
+
+block3 = {
+	name: "The front door... there's two door handles... left or right knob?"
+};
+
+block4 = {
+	name: "A trapdoor opens beneath you... you die ",
+	end: true
+};
+
+block5 = {
+	name: "Inside the House... you win",
+	end: true
+};
+
+block1.north = block2;
+block2.south = block1;
+block2.north = block3;
+block3.right = block4;
+block3.left = block5;
+
+gameOver = false
+
+current = block1; // what is the point of using current within the while loop? why not just block1?
+
+while (true) {
+	alert("You are here: " + current.name);
+	if(gameOver) { break; };
+	go = prompt("Go where?").toLowerCase();
+	
+	if(current[go]) {
+		current = current[go]
+		if(current.end) { 
+			gameOver = true;
+		}
+	}
+
+	else {
+		alert("can't go that way...");  // nos doesn't === north or south
+	}
+
+	/*if(block3.whatever === undefined) {			// "if block.whatever does NOT exist" ...
+	}
+	  if(block3.whatever !== undefined) {			// "if block.whater DOES exist" ...
+	}
+	*/
+}
+
+</script>
+
+</body>
+
+</html>
