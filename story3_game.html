@@ -5,11 +5,40 @@
 
 <script>
 
-alert("Welcome to Levi's Object Oriented Game that is slightly less shitty than his previous game.");
+block1 = {
+	name = "Front Yard"
+};
 
+block2 = {
+	name = "House Entrance"
+};
 
+block1.north = block2;
+block2.south = block1;
 
+current = block1; // what is the point of using current within the while loop? why not just block1?
 
+while (true) {
+
+	alert("You are here: " + current.name); // current.name (block1.name?) is "Front Yard"
+											// why not just block1.name...
+	nos = prompt("Go North, or South.").toUpperCase();
+	// nos "north or south"
+	if (nos === "NORTH" && current.north != undefined) { 
+	// != undefined... (!= undefined is defined?) so is current.north defined somewhere?
+		current = current.north;  // current.north (block1.north? = block2?) ... is this where current.north is defined?
+		alert("hahahahahaha");
+	}
+ 	else
+	if (nos === "SOUTH" && current.south != undefined) {   // don't understand != undefined...
+		current = current.south;  // current.south (block1.south?)
+		alert("lol");
+	}
+	else {
+		alert("can't go that way...");  // nos doesn't === north or south
+	}
+
+}
 </script>
 
 </body>
