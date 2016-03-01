@@ -6,32 +6,42 @@
 <script>
 
 block1 = {
-	name: "Front Yard"
+	name: "Front Yard",
+	disc: "It is a bright sunny summer day. There is a house to the north. The grass is sunbaked, and brown. To the South is a large cedar fence.",
+	exits: {}
 };
 
 block2 = {
-	name: "Front Porch"
+	name: "Front Porch",
+	disc: "The porch is small and has a roof. There is a large oak door to the north... There is a bench to the left. On top of the bench is a baseball and a baseball bat.",
+	exits: {}
 };
 
 block3 = {
-	name: "The front door... there's two door handles... left or right knob?"
+	name: "Front Door ",
+	disc: "",
+	exits: {}
 };
 
 block4 = {
-	name: "A trapdoor opens beneath you... you die ",
-	end: true
+	name: "Bottom of a Pit",
+	disc: "",
+	end: true,
+	exits: {}
 };
 
 block5 = {
 	name: "Inside the House... you win",
-	end: true
+	disc: "",
+	end: true,
+	exits: {}
 };
 
-block1.north = block2;
-block2.south = block1;
-block2.north = block3;
-block3.right = block4;
-block3.left = block5;
+block1.exits.north = block2;
+block2.exits.south = block1;
+block2.exits.north = block3;
+block3.exits.right = block4;
+block3.exits.left = block5;
 
 gameOver = false
 
@@ -40,15 +50,15 @@ current = block1; // what is the point of using current within the while loop? w
 while (true) {
 	alert("You are here: " + current.name);
 	if(gameOver) { break; };
-	go = prompt("Go where?").toLowerCase();
+	go = prompt("What do you want to do?").toLowerCase();
 	
-	if(current[go]) {
+	if(current[go]) {   // the prompt is the current location
 		current = current[go]
+		alert(current.disc);
 		if(current.end) { 
 			gameOver = true;
 		}
 	}
-
 	else {
 		alert("can't go that way...");  // nos doesn't === north or south
 	}
