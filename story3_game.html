@@ -13,8 +13,14 @@ block2 = {
 	name = "Front Porch"
 };
 
+block3 = {
+	name = "Botton of well (you're dead)";
+};
+
 block1.north = block2;
 block2.south = block1;
+block2.down = block3;
+
 
 current = block1; // what is the point of using current within the while loop? why not just block1?
 
@@ -22,22 +28,17 @@ while (true) {
 
 	alert("You are here: " + current.name); // current.name (block1.name?) is "Front Yard"
 											// why not just block1.name...
-	nos = prompt("Go North, or South.").toUpperCase();
-	// nos "north or south"
-	if (nos === "NORTH" && current.north != undefined) { 
-	// != undefined... (!= undefined is defined?) so is current.north defined somewhere?
-		current = current.north;  // current.north (block1.north? = block2?) ... is this where current.north is defined?
-		alert("You are here:" + block2.name);
-	}
- 	else
-	if (nos === "SOUTH" && current.south != undefined) {   // don't understand != undefined...
-		current = current.south;  // current.south (block1.south?)
-		alert("lol");
+	nos = prompt("Go where?").toLowerCase();
+
+	if(current[nos]) {
+		current = current[nos];
 	}
 	else {
 		alert("can't go that way...");  // nos doesn't === north or south
 	}
 
+	//if(block3.whatever === doesnt_exist) {			// "if block.whatever does NOT exist" ...
+	//}
 }
 </script>
 
