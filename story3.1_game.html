@@ -7,35 +7,40 @@
 
 block1 = {
 	name: "Front Yard",
-	disc: "It is a bright sunny summer day. There is a house to the north. The grass is sunbaked, and brown. To the South is a large cedar fence.",
-	exits: {}
+	disc: "It is a bright, sunny, summer day. There is a house to the north. The grass is sunbaked, and brown.",
+	exits: {},
+	things: {}
 };
 
 block2 = {
 	name: "Front Porch",
 	disc: "The porch is small and has a roof. There is a large oak door to the north... There is a bench to the left. On top of the bench is a baseball bat.",
 	disc2: "A 6 ton weight crushes your body",
-	exits: {}
+	exits: {},
+	things: {}
 };
 
 block3 = {
 	name: "Front Door ",
 	disc: "What a beautifuly crafted door... with two knobs???",
-	exits: {}
+	exits: {},
+	things: {}
 };
 
 block4 = {
 	name: "Bottom of a Pit",
-	disc: "A trap door opens. You fall straight down onto large spikes and DIE!",
+	disc: "A trap door opens. You fall straight down onto long, rusty lengths of dull rebar. The rebar pentrates your body. You bleed out and DIE!",
 	end: true,
-	exits: {}
+	exits: {},
+	things: {}
 };
 
 block5 = {
 	name: "Inside",
-	disc: "The house is quite nice... too nice... you have a sudden urg to break everything in the house",
-	disc2: "You crush everything in sight. Congrats you win.",
-	exits: {}
+	disc: "The house is quite nice... too nice... you have a sudden urg to break everything in sight.",
+	disc2: "You crush everything in sight. Congrats you win!",
+	exits: {},
+	things: {}
 };
 
 block1.exits.north = block2;
@@ -46,20 +51,21 @@ block3.exits.rightknob = block4;
 block3.exits.leftknob = block5;
 block5.exits.break = block5;
 block5.exits.south = block2;
+
 gameOver = false
 
 current = block1;
 
 while (true) {
 	alert("You are here: " + current.name);
-    alert(current.disc);	
-	if(gameOver) { break; };
-	var a = [];
+    alert(current.disc);	 // describes the block
+	if(gameOver) { break; };    // if true then break
+	var a = [];   
 	for(var k in current.exits) {
-		a.push(k); // puts k into the array
+		a.push(k);   // pushes k into the array
 	}
 	// a = {"north", "south"} etc
-		var x = a.join(", "); // x = "north, south"
+		var x = a.join(", "); // x = "north, south"  ... joins the seperate strings in the array into one long string
 	act = prompt("What do you want to do? (" + x + ")").toLowerCase();
 
 	if(act === "break") {
@@ -72,14 +78,14 @@ while (true) {
 		break;
 	}
 	else {
-		if(current.exits[act]) {   // the prompt is the current location
-			current = current.exits[act]
-		if(current.end) { 
+		if(current.exits[act]) {  
+			current = current.exits[act]   // the current location is whatever was promped
+		if(current.end) {    // if current.end is true then gameOver is also true --- ends the game
 			gameOver = true;
 		}
 		}
 		else {
-			alert("can't go that way..."); 
+			alert("can't go that way...");  // only if !== current.exits[act]
 		}
 	}
 
