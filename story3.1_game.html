@@ -5,6 +5,17 @@
 
 <script>
 
+/*  Game additions: 
+	Be able to pick up and use things (permanent & temperary things)
+	Be able to look at all the things you have... inventory
+	Only describe the block the first time it is entered... if needed, "look" for the description to popup again
+	Restart Buttom instead of refreshing
+	If act is not property... be able to alert other than "can't go that way"
+	"Show actions" (prompt) --- verbs to do things "go", "look", "take", "fight", "search", "use"
+	--- objects don't need to be shown... they are in the description... --- player use action "take" for objects, or "use".
+	
+*/
+
 block1 = {
 	name: "Front Yard",
 	disc: "It is a bright, sunny, summer day. There is a house to the north. The grass is sunbaked, and brown.",
@@ -47,7 +58,7 @@ block1.exits.north = block2;
 block2.exits.south = block1;
 block2.exits.north = block3;
 block2.exits.sit = block2;
-block2.things.takebat = block2;
+block2.things.bat = block2;
 block3.exits.rightknob = block4;
 block3.exits.leftknob = block5;
 // block5.exits.break = block5;
@@ -102,7 +113,15 @@ while (true) {
 	else
 	if(current.things[act]) {   // the current thing is whatever was prompted
 		pack = current.things[act];  // the thing is the pack...
-	} 
+			alert("You have a " + act);	
+/*	
+			for(var p in current.things) {
+			pack.push(p);
+			}
+			var things = pack.join(", ");
+			alert(things);
+*/
+} 
 	else {
 			alert("can't go that way...");  // only if !== current.exits[act]
 	}
