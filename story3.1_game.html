@@ -47,14 +47,18 @@ block1.exits.north = block2;
 block2.exits.south = block1;
 block2.exits.north = block3;
 block2.exits.sit = block2;
+block2.things.takebat = block2;
 block3.exits.rightknob = block4;
 block3.exits.leftknob = block5;
-block5.exits.break = block5;
+// block5.exits.break = block5;
+block5.things.usebat = block5;
 block5.exits.south = block2;
 
 gameOver = false
 
 current = block1;
+
+var pack;
 
 while (true) {
 	alert("You are here: " + current.name);
@@ -64,37 +68,52 @@ while (true) {
 	for(var k in current.exits) {
 		a.push(k);   // pushes k into the array
 	}
+		var x = a.join(", ");  // x = "north, south"
+	
 	// a = {"north", "south"} etc
-		var x = a.join(", "); // x = "north, south"  ... joins the seperate strings in the array into one long string
-	act = prompt("What do you want to do? (" + x + ")").toLowerCase();
+	var a2 = [];
+	for(var j in current.things) {
+		a2.push(j);
+	}
+		var y = a2.join(", ");
+	
+	act = prompt("What do you want to do? (" + x + "), (" + y + ")") .toLowerCase();
 
-	if(act === "break") {
+	if(act === "usebat" && pack === undefined) {
+		alert("you don't have a bat");
+	}
+	else if (act === "usebat" && pack !== undefined) {
 		alert(current.disc2);
 		break;
-	} 
+	}
 	else
 	if(act === "sit") {
 		alert(current.disc2);
 		break;
 	}
-	else {
-		if(current.exits[act]) {  
-			current = current.exits[act]   // the current location is whatever was promped
+	else  {
+	if(current.exits[act]) {  
+		current = current.exits[act]   // the current location is whatever was promped
+	
 		if(current.end) {    // if current.end is true then gameOver is also true --- ends the game
 			gameOver = true;
 		}
-		}
-		else {
-			alert("can't go that way...");  // only if !== current.exits[act]
-		}
 	}
-
+	else
+	if(current.things[act]) {   // the current thing is whatever was prompted
+		pack = current.things[act];  // the thing is the pack...
+	} 
+	else {
+			alert("can't go that way...");  // only if !== current.exits[act]
+	}
+	}
+}
 	/*if(block3.whatever === undefined) {			// "if block.whatever does NOT exist" ...
 	}
 	  if(block3.whatever !== undefined) {			// "if block.whater DOES exist" ...
 	}
 	*/
-}
+
 
 </script>
 
