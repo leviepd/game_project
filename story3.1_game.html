@@ -77,12 +77,12 @@ while (true) {
 	}
 		var y = a2.join(", ");
 	
-	act = prompt("What do you want to do? (" + x + "), (" + y + ")") .toLowerCase();
+	act = prompt("What do you want to do? (" + x + "), object: (" + y + ")") .toLowerCase();
 
-	if(act === "usebat" && pack === undefined) {
+	if(act === "usebat" && pack === undefined) {  //prompt "usebat" && pack;
 		alert("you don't have a bat");
 	}
-	else if (act === "usebat" && pack !== undefined) {
+	else if (act === "usebat" && pack !== undefined) { // prompt "usebat" && pack === current.things[act];  ... pack is defined
 		alert(current.disc2);
 		break;
 	}
