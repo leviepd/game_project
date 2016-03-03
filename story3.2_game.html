@@ -18,13 +18,19 @@ write = function(s) {
 	document.getElementById("output").innerHTML = h + "<br>" + s;
 }
 
+var verb = {
+	go: "go",
+	take: "take",
+	use: "use"
+};
 
 
 block1 = {
 	name: "Front Yard",
 	disc: "It is a bright, sunny, summer day. There is a house to the north. The grass is sunbaked, and brown.",
 	exits: {},
-	things: {}
+	items: {}
+	
 };
 
 block2 = {
@@ -32,14 +38,14 @@ block2 = {
 	disc: "The porch is small and has a roof. There is a large oak door to the north... There is a bench to the left. On top of the bench is a baseball bat.",
 	disc2: "A 6 ton weight crushes your body",
 	exits: {},
-	things: {}
+	items: {}
 };
 
 block3 = {
 	name: "Front Door ",
 	disc: "What a beautifuly crafted door... with two knobs???",
 	exits: {},
-	things: {}
+	items: {}
 };
 
 block4 = {
@@ -47,7 +53,7 @@ block4 = {
 	disc: "A trap door opens. You fall straight down onto long, rusty lengths of dull rebar. The rebar pentrates your body. You bleed out and DIE!",
 	end: true,
 	exits: {},
-	things: {}
+	items: {}
 };
 
 block5 = {
@@ -55,18 +61,18 @@ block5 = {
 	disc: "The house is quite nice... too nice... you have a sudden urg to break everything in sight.",
 	disc2: "You crush everything in sight. Congrats you win!",
 	exits: {},
-	things: {}
+	items: {}
 };
 
 block1.exits.north = block2;
 block2.exits.south = block1;
 block2.exits.north = block3;
 block2.exits.sit = block2;
-block2.things.bat = "A bat";
+block2.items.bat = "Bat";
 block3.exits.rightknob = block4;
 block3.exits.leftknob = block5;
 // block5.exits.break = block5;
-//block5.things.usebat = block5;
+// block5.items.usebat = block5;
 block5.exits.south = block2;
 
 gameOver = false
@@ -77,15 +83,17 @@ var pack = "";
 
 
 // handles changes to input element in html page
-got_input = function(element) {
-	handle_input(element.value);
-	element.value = "";
+var got_input = function(element) {
+	handle_input(element.value);  // calls handle_input and argues a string
+	element.value = "";  
+	element.scrollIntoView;  
 }
 
-
 function situation() {
+	
+	write("");
 	write("You are here: " + current.name);
-    write(current.disc);	 // describes the block
+	write(current.disc);
 
 	// make a string out of the available exits
 	var a = [];   
@@ -98,46 +106,74 @@ function situation() {
 
 	// make a string out of the available objects
 	var a2 = [];
-	for(var j in current.things) {
+	for(var j in current.items) {
 		a2.push(j);
 	}
 	var y = a2.join(", ");
 	write("Things you see: "+y);
 
+    // things you have
 	write("Things you have: "+pack);
+
 }
-
-
 
 situation();
 
 handle_input = function(act) {
 
 	act = act.toLowerCase();
+	act = act.split(" ");     // act is ["", ""]
+	var verb = act[0];	
+	var ood = act[1];	     // act = ["verb", "object"]
+	// oob object or direction
+	if((verb === "go" && ood === "north") || (verb === "go" && ood === "south")) {
+		current = current.exits[act];
+		situation();
+	}
+	else
+	if(verb === "take" && ood === current.items[act]) {
+		current = current.items[act];
+		situation();
+		if(current.end) {
+			gameOver = true;
+		}
+	}
+	else 
+	if (verb === "use" && current.items[act]) {
+		current = current.items[act];
+		delete current.items[act];
+		situation();
+	}
+	else {
+		write("That was not an option.");
+	}
+
+	
 
 
 	if(gameOver) {
 		write("Sorry, game over.");
 		return;
 	};    // if true then break
+/*
 
-
-	if(act === "usebat" && pack === "") {  //prompt "usebat" && pack;
+	if(act === "bat" && pack === "") {  //prompt "usebat" && pack;
 		write("you don't have a bat");
 	}
-	else if (act === "usebat" && pack !== "") { // prompt "usebat" && pack === current.things[act];  ... pack is defined
+//	else
+	if (act === "bat" && pack !== "") { // prompt "usebat" && pack === current.things[act];  ... pack is defined
 		// gameover
 		write(current.disc2);
 		return;
 	}
-	else
+//	else
 	if(act === "sit") {
 		// gameover
 		write(current.disc2);
 		return;
 	}
-	else  {
-		if(current.exits[act]) {  
+/*	else  {
+		if(current.exits[act]) {  //current.action.exits[act] ???
 			current = current.exits[act]   // the current location is whatever was promped
 		
 			if(current.end) {    // if current.end is true then gameOver is also true --- ends the game
@@ -145,9 +181,9 @@ handle_input = function(act) {
 			}
 		}
 		else
-		if(current.things[act]) {   // the current thing is whatever was prompted
-			pack = current.things[act];  // the thing is the pack...
-			delete current.things[act];
+		if(current.items[act]) {   // the current item is whatever was prompted
+			pack = current.items[act];  // the item is the pack...
+			delete current.items[act];
 		} 
 		else {
 			write("can't go that way...");  // only if !== current.exits[act]
@@ -156,10 +192,9 @@ handle_input = function(act) {
 
 
 	situation();
+*/
 
 }
-
-
 
 </script>
 
