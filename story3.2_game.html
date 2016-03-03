@@ -123,12 +123,14 @@ pack = function() {
 	write("Things you have: "+z);
 }
 
+/*
 gameOver = function() {   // checks for game over
 	if(current.end) {
 		write("Sorry, game over.");
 		return;
 	}
 }
+*/
 
 inventory = {};
 
@@ -138,17 +140,26 @@ situation();
 
 handle_input = function(act) {
 
+	if(gameOver) {
+		write("Sorry, game over.");
+		return;
+	}
+
 	act = act.toLowerCase();
 	act = act.split(" ");     // act is ["", ""]
 	var verb = act[0];	
 	var ood = act[1];	     // act = ["verb", "object"]
 	// oob object or direction
 	if(verb === "go"){
-		// look for ood
+		// User wants to go somewhere
 		if(current.exits[ood]) {
-			current = current.exits[ood]
+			// the exit requested does exist
+			current = current.exits[ood]			// actually go there
+			if(current.end === true) {
+				gameOver = true;
+			}
 			situation();
-			gameOver();
+			//gameOver();
 		} 
 		else {
 			write("can't go that way");
@@ -161,7 +172,7 @@ handle_input = function(act) {
 			inventory[ood] = thing;
 			delete current.items[ood];
 			situation();
-			gameOver();
+			//gameOver();
 		}
 		else {
 			write("you can't take that.");
@@ -169,11 +180,18 @@ handle_input = function(act) {
 	}
 	else 
 	if (verb === "use") {
+		// user wants to use something
 		if(current.items[ood]) {
-			current = current.items[ood]
-			delete current.items[ood];
+			// i am carrying that thing
+			//current = current.items[ood]
+			//delete current.items[ood];
+			if(cul ... ) {
+				// i'm inside the house
+				show desc2
+				gameOver = true;
+			}
 			situation();
-			gameOver();
+			//gameOver();
 		}
 		else {
 			write("You do not have that item.");
