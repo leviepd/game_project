@@ -125,8 +125,7 @@ pack = function() {
 
 /*
 gameOver = function() {   // checks for game over
-	if(current.end) {
-		write("Sorry, game over.");
+	if() {
 		return;
 	}
 }
@@ -183,11 +182,8 @@ handle_input = function(act) {
 		// user wants to use something
 		if(current.items[ood]) {
 			// i am carrying that thing
-			//current = current.items[ood]
-			//delete current.items[ood];
-			if(cul ... ) {
-				// i'm inside the house
-				show desc2
+			if(current.name === "Inside") {
+				write(current.disc2);
 				gameOver = true;
 			}
 			situation();
