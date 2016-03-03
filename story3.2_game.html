@@ -112,9 +112,22 @@ function situation() {
 	var y = a2.join(", ");
 	write("Things you see: "+y);
 
-    // things you have
-	write("Things you have: "+pack);
+	var a3 = [];
+	for(var l in current.items) {
+		a3.push(l);
+	}
+	var z = a3.join(", ");
+	write("Things you have: "+z);
+		
+}
 
+
+
+gameOver = function() {
+	if(current.end) {
+		write("Sorry, game over.");
+		return;
+	}
 }
 
 situation();
@@ -126,23 +139,40 @@ handle_input = function(act) {
 	var verb = act[0];	
 	var ood = act[1];	     // act = ["verb", "object"]
 	// oob object or direction
-	if((verb === "go" && ood === "north") || (verb === "go" && ood === "south")) {
-		current = current.exits[act];
-		situation();
-	}
-	else
-	if(verb === "take" && ood === current.items[act]) {
-		current = current.items[act];
-		situation();
-		if(current.end) {
-			gameOver = true;
+	if(verb === "go"){
+		// look for ood
+		if(current.exits[ood]) {
+			current = current.exits[ood]
+			situation();
+			gameOver();
+		} 
+		else {
+			write("can't go that way");
 		}
 	}
 	else 
-	if (verb === "use" && current.items[act]) {
-		current = current.items[act];
-		delete current.items[act];
-		situation();
+	if(verb === "take") {
+		if(current.items[ood]) {
+			current = current.items[ood]
+			pack();
+			situation();
+			gameOver();
+		}
+		else {
+			write("you can't take that.");
+		}
+	}
+	else 
+	if (verb === "use") {
+		if(current.items[ood]) {
+			current = current.items[ood]
+			delete current.items[ood];
+			situation();
+			gameOver();
+		}
+		else {
+			write("You do not have that item.");
+		}
 	}
 	else {
 		write("That was not an option.");
@@ -151,10 +181,6 @@ handle_input = function(act) {
 	
 
 
-	if(gameOver) {
-		write("Sorry, game over.");
-		return;
-	};    // if true then break
 /*
 
 	if(act === "bat" && pack === "") {  //prompt "usebat" && pack;
