@@ -124,8 +124,7 @@ pack = function() {
 }
 
 gameOver = function() {   // checks for game over
-	if(current.end) {
-		write("Sorry, game over.");
+	if() {
 		return;
 	}
 }
@@ -169,11 +168,13 @@ handle_input = function(act) {
 	}
 	else 
 	if (verb === "use") {
-		if(current.items[ood]) {
-			current = current.items[ood]
-			delete current.items[ood];
-			situation();
-			gameOver();
+		if(inventory) {
+		//	 = current.items[ood]
+		//	delete current.items[ood];
+				if(current.name === "Inside") {
+					write(current.disc2);
+				}
+		situation();
 		}
 		else {
 			write("You do not have that item.");
