@@ -80,7 +80,6 @@ gameOver = false
 
 current = block1;
 
-var pack = "";
 
 
 // handles changes to input element in html page
@@ -117,7 +116,7 @@ function situation() {
 
 pack = function() {
 	var a3 = [];
-	for(var l in current.items) {
+	for(var l in inventory) {
 		a3.push(l);
 	}
 	var z = a3.join(", ");
@@ -131,9 +130,9 @@ gameOver = function() {   // checks for game over
 	}
 }
 
-inventory = {
+inventory = {};
 
-}
+
 
 situation();
 
