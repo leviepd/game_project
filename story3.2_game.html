@@ -131,6 +131,10 @@ gameOver = function() {   // checks for game over
 	}
 }
 
+inventory = {
+
+}
+
 situation();
 
 handle_input = function(act) {
@@ -154,7 +158,9 @@ handle_input = function(act) {
 	else 
 	if(verb === "take") {
 		if(current.items[ood]) {
-			current = current.items[ood]
+			var thing = current.items[ood]   // current.items[ood] = inventory[ood];
+			inventory[ood] = thing;
+			delete current.items[ood];
 			situation();
 			gameOver();
 		}
