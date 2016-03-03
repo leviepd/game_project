@@ -123,17 +123,7 @@ pack = function() {
 	write("Things you have: "+z);
 }
 
-/*
-gameOver = function() {   // checks for game over
-	if() {
-		return;
-	}
-}
-*/
-
 inventory = {};
-
-
 
 situation();
 
@@ -180,7 +170,7 @@ handle_input = function(act) {
 	else 
 	if (verb === "use") {
 		// user wants to use something
-		if(current.items[ood]) {
+		if(inventory) {
 			// i am carrying that thing
 			if(current.name === "Inside") {
 				write(current.disc2);
