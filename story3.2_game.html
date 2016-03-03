@@ -18,12 +18,13 @@ write = function(s) {
 	document.getElementById("output").innerHTML = h + "<br>" + s;
 }
 
-var verb = {
+/*var verb = {
+	turn: "turn"
 	go: "go",
 	take: "take",
 	use: "use"
 };
-
+*/
 
 block1 = {
 	name: "Front Yard",
@@ -68,7 +69,7 @@ block1.exits.north = block2;
 block2.exits.south = block1;
 block2.exits.north = block3;
 block2.exits.sit = block2;
-block2.items.bat = "Bat";
+block2.items.bat = block2;
 block3.exits.rightknob = block4;
 block3.exits.leftknob = block5;
 // block5.exits.break = block5;
@@ -111,19 +112,19 @@ function situation() {
 	}
 	var y = a2.join(", ");
 	write("Things you see: "+y);
+	pack();
+}
 
+pack = function() {
 	var a3 = [];
 	for(var l in current.items) {
 		a3.push(l);
 	}
 	var z = a3.join(", ");
 	write("Things you have: "+z);
-		
 }
 
-
-
-gameOver = function() {
+gameOver = function() {   // checks for game over
 	if(current.end) {
 		write("Sorry, game over.");
 		return;
@@ -154,7 +155,6 @@ handle_input = function(act) {
 	if(verb === "take") {
 		if(current.items[ood]) {
 			current = current.items[ood]
-			pack();
 			situation();
 			gameOver();
 		}
