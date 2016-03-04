@@ -132,7 +132,15 @@ block12 = {
 
 block13 = {
 	name: "Bedroom",
-	disc: "This room appears to belong the a young teenager. The walls are littered with ameture looking sketches of demonic creatures. wtf, the more you look, the freakier they become. There are dirty dishes all over the floor. In the middle of the room there is a bed. The blankets are covered in red stains that look like blood. ",
+	disc: "This room appears to belong the a young teenager. The walls are littered with ameture looking sketches of demonic creatures. wtf, the more you look, the freakier they become. There are dirty dishes all over the floor. Across the room is a door that could go to a closet. In the middle of the room there is a bed... blankets covered in red blood stains. ",
+	exits: {},
+	items: {},
+	things: {}
+};
+
+block14 = {
+	name: "Closet",
+	disc: "Inside the closet you find a staircase that leads down into blackness... You would need some light to go down there. There may be a switch around here somewhere.",
 	exits: {},
 	items: {},
 	things: {}
@@ -151,7 +159,7 @@ block3.exits.west = block1;
 block4.exits.east = block1;
 block5.exits.north = block1;
 block5.items.leaflet = block5;
-block6.exits.riightknob = block8;
+block6.exits.rightknob = block8;
 block6.exits.leftknob = block9;
 block6.exits.south = block2;
 block9.exits.south = block2;
@@ -166,6 +174,9 @@ block12.exits.downstairs = block9;
 block12.items.note = block12;
 block12.exits.west = block13;
 block13.exits.east = block12;
+block13.exits.north = block14;
+block14.exits.south = block13;
+block14.things.lightswitch = block14;
 
 
 gameOver = false
@@ -203,19 +214,14 @@ function situation() {
 	}
 	var y = a2.join(", ");
 	write("Objects In View: "+y);
-	pack();
 	
-	
-
-}
-
-pack = function() {
 	var a3 = [];
 	for(var l in inventory) {
 		a3.push(l);
 	}
 	var z = a3.join(", ");
-	write("Pack: "+z);
+	write("Pack: " +z);
+
 }
 
 inventory = {};
@@ -267,7 +273,7 @@ handle_input = function(act) {
 		// user wants to use something
 		if(inventory) {
 			// i am carrying that thing
-			if(current.name === "Inside") {
+			if(current.name === "Entry Way") {
 				write(current.disc2);
 				gameOver = true;
 			}
