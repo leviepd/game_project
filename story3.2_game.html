@@ -37,7 +37,6 @@ block1 = {
 block2 = {
 	name: "Front Porch",
 	disc: "The porch is small and has a roof. There is a large oak door to the north... There is a bench to the left. On top of the bench is a baseball bat.",
-	disc2: "A 6 ton weight crushes your body",
 	exits: {},
 	items: {}
 };
@@ -65,10 +64,18 @@ block5 = {
 	items: {}
 };
 
+block6 = {
+	name:"Bench",
+	disc: "A 6 ton weight falls and crushes you.",
+	end: true,
+	exits: {},
+	items: {}
+};
+
 block1.exits.north = block2;
 block2.exits.south = block1;
 block2.exits.north = block3;
-block2.exits.sit = block2;
+block2.exits.sit = block6;
 block2.items.bat = block2;
 block3.exits.rightknob = block4;
 block3.exits.leftknob = block5;
@@ -148,8 +155,8 @@ handle_input = function(act) {
 				gameOver = true;
 			}
 			situation();
-			//gameOver();
-		} 
+	
+	} 
 		else {
 			write("can't go that way");
 		}
@@ -161,7 +168,7 @@ handle_input = function(act) {
 			inventory[ood] = thing;
 			delete current.items[ood];
 			situation();
-			//gameOver();
+		
 		}
 		else {
 			write("you can't take that.");
@@ -177,7 +184,7 @@ handle_input = function(act) {
 				gameOver = true;
 			}
 			situation();
-			//gameOver();
+		
 		}
 		else {
 			write("You do not have that item.");
