@@ -97,14 +97,14 @@ block7 = {
 
 block10 = {
 	name: "Living Room",
-	disc: "All the surrounding walls are covered in bookshelves full of books. In the center of the room there is a chair, and a small table. The table is covered in all kinds of interesting trinkets.",
+	disc: "All the surrounding walls are covered in bookshelves. In the center of the room there is a chair, and a small table. The table is covered in all kinds of interesting trinkets.",
 	exits: {},
 	items: {}
 };
 
 block11 = {
 	name: "Narrow Hallway",
-	disc: "You make your way down the hallway. Ten paces down you trip over a rug, and fall directly on your head...",
+	disc: "You make your way down the hallway. Ten paces down you trip over a rug, and crack your head open on the hardwood floor...",
 	end: true,
 	exits: {},
 	items: {}
@@ -113,6 +113,7 @@ block11 = {
 block12 = {
 	name: "Upstairs hallway",
 	disc: "At the top of the stairs you find yourself facing another long narrow hallway. To the east is a door that has a piece of paper taped to it. To the west is another door.",
+	disc2: "Beware, this is no place for wonderers."
 	exits: {},
 	items: {}
 };
@@ -259,6 +260,13 @@ handle_input = function(act) {
 		else {
 			write("You do not have that item.");
 		}
+	}
+	else
+	if(verb === "read") {
+		if(inventory) {
+			write(current.disc2);
+		}
+
 	}
 	else {
 		write("That was not an option.");
