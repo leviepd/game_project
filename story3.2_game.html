@@ -87,7 +87,7 @@ block8 = {
 };
 
 block9 = {
-	name: "Inside",
+	name: "Entry Way",
 	disc: "What a cozy little house. The entry way is extremely small. To the east is a living room. North leads down a narrow hallway that goes to the end of the house. There is a staircase directly to the west that leads upwards... what a strange place for a staircase...",
 	disc2: "You crush everything in sight. Congrats you win!",
 	exits: {},
@@ -144,7 +144,7 @@ block1.exits.east = block3;
 block1.exits.west = block4;
 block2.exits.south = block1;
 block2.exits.north = block6;
-block2.exits.sit = block7;
+block2.exits.bench = block7;
 block2.items.bat = block2;
 block2.items.key = block2;
 block3.exits.west = block1;
@@ -281,8 +281,20 @@ handle_input = function(act) {
 	if(verb === "read") {
 		if(inventory) {
 			write(current.disc2);
+		}
+		else {
+			write("You don't have anything to read");
+		}
 	}
-
+	else
+	if(verb === "sit") {
+		if(current.exits[ood]) {
+			current = current.exits[ood]
+			if(current.end) {
+				gameOver = true;
+			}
+			situation();
+		}
 	}
 	else {
 		write("That was not an option.");
