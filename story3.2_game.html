@@ -31,7 +31,8 @@ block1 = {
 	name: "Front Yard",
 	disc: "It is a bright, sunny, summer day. There is a house to the north. The grass is sunbaked, and brown.",
 	exits: {},
-	items: {}
+	items: {},
+	thiings: {}
 	
 };
 
@@ -39,21 +40,24 @@ block2 = {
 	name: "Front Porch",
 	disc: "The porch is small and has a roof. There is a large oak door to the north... There is a bench to the left.",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block3 = {
 	name: "Right side of House",
 	disc: "",
 	exits: {},
-	items: {}
+	items: {},
+	thing: {}
 };
 
 block4 = {
 	name: "Left side of House.",
 	disc: "",
 	exits: {},
-	items: {}
+	items: {},
+	things ; {}
 };
 
 block5 = {
@@ -61,14 +65,16 @@ block5 = {
 	disc: "The mailbox appears to be wide open.",
 	disc2: "Labyrinth is a game of adventure. Beware of any danger out there. Happy Exploring.",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block6 = {
 	name: "Front Door ",
 	disc: "What a beautifuly crafted door... with two knobs???",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block8 = {
@@ -76,7 +82,8 @@ block8 = {
 	disc: "A trap door opens. You fall straight down onto long, rusty lengths of dull rebar. The rebar pentrates your body. You bleed out and DIE!",
 	end: true,
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block9 = {
@@ -84,7 +91,8 @@ block9 = {
 	disc: "What a cozy little house. The entry way is extremely small. To the east is a living room. North leads down a narrow hallway that goes to the end of the house. There is a staircase directly to the west that leads upwards... what a strange place for a staircase...",
 	disc2: "You crush everything in sight. Congrats you win!",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block7 = {
@@ -92,14 +100,16 @@ block7 = {
 	disc: "A 6 ton weight falls and crushes you.",
 	end: true,
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block10 = {
 	name: "Living Room",
 	disc: "All the surrounding walls are covered in bookshelves. In the center of the room there is a chair, and a small table. The table is covered in all kinds of interesting trinkets.",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block11 = {
@@ -107,7 +117,8 @@ block11 = {
 	disc: "You make your way down the hallway. Ten paces down you trip over a rug, and crack your head open on the hardwood floor...",
 	end: true,
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block12 = {
@@ -115,14 +126,16 @@ block12 = {
 	disc: "At the top of the stairs you find yourself facing another long narrow hallway. To the east is a door that has a piece of paper taped to it. To the west is another door.",
 	disc2: "Beware, this is no place for wonderers.",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block13 = {
 	name: "Bedroom",
 	disc: "This room appears to belong the a young teenager. The walls are littered with ameture looking sketches of demonic creatures. wtf, the more you look, the freakier they become. There are dirty dishes all over the floor. In the middle of the room there is a bed. The blankets are covered in red stains that look like blood. ",
 	exits: {},
-	items: {}
+	items: {},
+	things: {}
 };
 
 block1.exits.north = block2;
@@ -138,7 +151,7 @@ block3.exits.west = block1;
 block4.exits.east = block1;
 block5.exits.north = block1;
 block5.items.leaflet = block5;
-block6.exits.rightknob = block8;
+block6.exits.riightknob = block8;
 block6.exits.leftknob = block9;
 block6.exits.south = block2;
 block9.exits.south = block2;
@@ -171,7 +184,7 @@ var got_input = function(element) {
 function situation() {
 	
 	write("");
-	write("You are here: " + current.name);
+	write("Location: " + current.name);
 	write(current.disc);
 
 	// make a string out of the available exits
@@ -180,7 +193,7 @@ function situation() {
 		a.push(k);   // pushes k into the array
 	}
 	var x = a.join(", ");  // x = "north, south"
-	write("Places you can go: "+x);
+	write("Go: "+x);
 
 
 	// make a string out of the available objects
@@ -189,8 +202,11 @@ function situation() {
 		a2.push(j);
 	}
 	var y = a2.join(", ");
-	write("Things you see: "+y);
+	write("Objects In View: "+y);
 	pack();
+	
+	
+
 }
 
 pack = function() {
@@ -199,7 +215,7 @@ pack = function() {
 		a3.push(l);
 	}
 	var z = a3.join(", ");
-	write("Things you have: "+z);
+	write("Pack: "+z);
 }
 
 inventory = {};
