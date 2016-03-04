@@ -124,23 +124,30 @@ block13 = {
 };
 
 block1.exits.north = block2;
-block1.exits.south = block2;
+block1.exits.south = block5;
 block1.exits.east = block3;
 block1.exits.west = block4;
 block2.exits.south = block1;
 block2.exits.north = block6;
 block2.exits.sit = block7;
 block2.items.bat = block2;
+block3.exits.west = block1;
+block4.exits.east = block1;
+block5.exits.north = block1;
 block6.exits.rightknob = block8;
 block6.exits.leftknob = block9;
+block6.exits.south = block2;
 // block5.exits.break = block5;
 // block5.items.usebat = block5;
 block9.exits.south = block2;
 block9.exits.east = block10;
-block9.exits.west = block12;
+block9.exits.upstairs = block12;
 block9.exits.north = block11;
+block10.exits.west = block9;
+block12.exits.downstairs = block9;
 block12.items.leaflet = block12;
 block12.exits.west = block13;
+block13.exits.east = block12;
 
 
 gameOver = false
