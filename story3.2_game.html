@@ -313,7 +313,7 @@ handle_input = function(act) {
 	if(verb === "take") {
 		if(current.items[ood]) {
 			var thing = current.items[ood];
-			if(thing.stuff === true) {
+			if(thing.take === true) {
 			inventory[ood] = thing;
 			delete current.items[ood];
 			situation();
