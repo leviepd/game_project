@@ -22,7 +22,8 @@ write = function(s) {
 	turn: "turn"
 	go: "go",
 	take: "take",
-	use: "use"
+	use: "use",
+	read: "read",
 };
 */
 
@@ -131,21 +132,24 @@ block2.exits.south = block1;
 block2.exits.north = block6;
 block2.exits.sit = block7;
 block2.items.bat = block2;
+block2.items.key = block2;
 block3.exits.west = block1;
 block4.exits.east = block1;
 block5.exits.north = block1;
+block5.items.leaflet = block5;
 block6.exits.rightknob = block8;
 block6.exits.leftknob = block9;
 block6.exits.south = block2;
-// block5.exits.break = block5;
-// block5.items.usebat = block5;
 block9.exits.south = block2;
 block9.exits.east = block10;
 block9.exits.upstairs = block12;
 block9.exits.north = block11;
 block10.exits.west = block9;
+block10.items.apple = block10;
+block10.items.knife = block10;
+block10.items.bottle = block10;
 block12.exits.downstairs = block9;
-block12.items.leaflet = block12;
+block12.items.note = block12;
 block12.exits.west = block13;
 block13.exits.east = block12;
 
