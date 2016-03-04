@@ -32,7 +32,7 @@ block1 = {
 	disc: "It is a bright, sunny, summer day. There is a house to the north. The grass is sunbaked, and brown.",
 	exits: {},
 	items: {},
-	thiings: {}
+	things: {}
 	
 };
 
@@ -41,7 +41,8 @@ block2 = {
 	disc: "The porch is small and has a roof. There is a large oak door to the north... There is a bench to the left.",
 	exits: {},
 	items: {},
-	things: {}
+	things: {},
+//	notes: notes 
 };
 
 block3 = {
@@ -140,11 +141,53 @@ block13 = {
 
 block14 = {
 	name: "Closet",
-	disc: "Inside the closet you find a staircase that leads down into blackness... You would need some light to go down there. There may be a switch around here somewhere.",
+	disc: "Inside the closet you find a staircase that leads down into blackness... You would need some light to go down there. There may be a light switch around here somewhere.",
+	disc2: "A dim light turns on and lights up the saircase. You still can not see the bottom...",
+	disc3: "You are to afraid to go down... need more light.",
 	exits: {},
 	items: {},
 	things: {}
 };
+
+leaflet = {
+	take: true,
+	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
+};
+
+note = {
+	take: true,
+	disc: "Beware, this is no place for wonderers"
+};
+
+bat = {
+	take: true
+};
+
+key = {
+	take: true
+};
+
+lantern = {
+	take: true
+};
+
+knife = {
+	take: true
+};
+
+bottle = {
+	take: true
+};
+
+apple = {
+	take: true
+};
+
+lswitch = {
+	take: false
+};
+
+// Game Data
 
 block1.exits.north = block2;
 block1.exits.south = block5;
@@ -154,11 +197,10 @@ block2.exits.south = block1;
 block2.exits.north = block6;
 block2.exits.bench = block7;
 block2.items.bat = block2;
-block2.items.key = block2;
+bock2.items.key = block2;
 block3.exits.west = block1;
 block4.exits.east = block1;
 block5.exits.north = block1;
-block5.items.leaflet = block5;
 block6.exits.rightknob = block8;
 block6.exits.leftknob = block9;
 block6.exits.south = block2;
@@ -170,13 +212,20 @@ block10.exits.west = block9;
 block10.items.apple = block10;
 block10.items.knife = block10;
 block10.items.bottle = block10;
+block10.items.lantern = block10;
 block12.exits.downstairs = block9;
 block12.items.note = block12;
 block12.exits.west = block13;
 block13.exits.east = block12;
 block13.exits.north = block14;
 block14.exits.south = block13;
-block14.things.lightswitch = block14;
+block14.things.switch = block14;
+block14.exits.downstairs = block14;
+
+// Things Data
+
+
+
 
 
 gameOver = false
@@ -226,6 +275,11 @@ function situation() {
 
 inventory = {};
 
+/*var notes = {
+	leaflet: "Labyrinth is a game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
+	note: "Beware, this is no place for wonderers."
+};
+*/
 situation();
 
 handle_input = function(act) {
@@ -258,10 +312,18 @@ handle_input = function(act) {
 	else 
 	if(verb === "take") {
 		if(current.items[ood]) {
-			var thing = current.items[ood]   // current.items[ood] = inventory[ood];
+			var thing = current.items[ood];
+			if(thing.stuff === true) {
 			inventory[ood] = thing;
 			delete current.items[ood];
 			situation();
+			}
+
+			else {
+				write("You can not take that.");
+			}
+		//	var thing = current.items[ood]   // current.items[ood] = inventory[ood];
+		//	inventory[ood] = thing;
 		
 		}
 		else {
@@ -272,12 +334,11 @@ handle_input = function(act) {
 	if (verb === "use") {
 		// user wants to use something
 		if(inventory) {
-			// i am carrying that thing
+			// i am carrying that thing			
 			if(current.name === "Entry Way") {
 				write(current.disc2);
 				gameOver = true;
 			}
-		
 		}
 		else {
 			write("You do not have that item.");
@@ -285,11 +346,11 @@ handle_input = function(act) {
 	}
 	else
 	if(verb === "read") {
-		if(inventory) {
-			write(current.disc2);
+		if(inventory[ood]) {
+			write("");
 		}
 		else {
-			write("You don't have anything to read");
+			write("You can not read that.");
 		}
 	}
 	else
@@ -302,6 +363,19 @@ handle_input = function(act) {
 			situation();
 		}
 	}
+	else
+	if(verb === "flip") {
+		if(current.things[ood]) {
+			write(current.disc2);
+		}
+	}
+/*	else 
+	if(verb === "turn") {
+		if(current.things[ood]) {
+			current = curruent.things[ood]
+		}
+	}  
+	*/
 	else {
 		write("That was not an option.");
 	}
