@@ -161,30 +161,37 @@ note = {
 };
 
 bat = {
-	take: true
+	take: true,
+	readable: false
 };
 
 key = {
-	take: true
+	take: true,
+	readable: false
 };
 
 lantern = {
-	take: true
+	take: true,
+	readable: false
 };
 knife = {
-	take: true
+	take: true,
+	readable: false
 };
 
 bottle = {
-	take: true
+	take: true,
+	readable: false
 };
 
 apple = {
-	take: true
+	take: true,
+	readable: false
 };
 
 lswitch = {
-	take: false
+	take: false,
+	readable: false
 };
 
 // Game Data
@@ -344,12 +351,13 @@ handle_input = function(act) {
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
-		if(thing.readable === true) {
-			write(thing.disc);
-		}
-		else {
+		if(thing === undefined) {
 			write("You can not read that.");
 		}
+		else
+		if(thing.readable === true) {
+			write(thing.disc);
+	}
 	}
 	else
 	if(verb === "sit") {
