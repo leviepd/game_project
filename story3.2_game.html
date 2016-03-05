@@ -343,7 +343,7 @@ handle_input = function(act) {
 	}
 	else
 	if(verb === "read") {
-		var thing = current.items[ood];
+		var thing = inventory[ood];
 		if(thing.readable === true) {
 			write(thing.disc);
 		}
