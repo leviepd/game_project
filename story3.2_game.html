@@ -42,7 +42,6 @@ block2 = {
 	exits: {},
 	items: {},
 	things: {},
-//	notes: notes 
 };
 
 block3 = {
@@ -151,11 +150,13 @@ block14 = {
 
 leaflet = {
 	take: true,
-	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
+	readable: true,
+	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker"
 };
 
 note = {
 	take: true,
+	readable: true,
 	disc: "Beware, this is no place for wonderers"
 };
 
@@ -170,7 +171,6 @@ key = {
 lantern = {
 	take: true
 };
-
 knife = {
 	take: true
 };
@@ -196,11 +196,11 @@ block1.exits.west = block4;
 block2.exits.south = block1;
 block2.exits.north = block6;
 block2.exits.bench = block7;
-block2.items.bat = block2;
-block2.items.key = block2;
+block2.items.bat = bat;
+block2.items.key = key;
 block3.exits.west = block1;
 block4.exits.east = block1;
-block5.items.leaflet = leaflet.disc;
+block5.items.leaflet = leaflet;
 block5.exits.north = block1;
 block6.exits.rightknob = block8;
 block6.exits.leftknob = block9;
@@ -210,17 +210,16 @@ block9.exits.east = block10;
 block9.exits.upstairs = block12;
 block9.exits.north = block11;
 block10.exits.west = block9;
-block10.items.apple = block10;
-block10.items.knife = block10;
-block10.items.bottle = block10;
-block10.items.lantern = block10;
+block10.items.apple = apple;
+block10.items.knife = knife;
+block10.items.bottle = bottle;
+block10.items.lantern = lantern;
 block12.exits.downstairs = block9;
-block12.items.note = block12;
+block12.items.note = note;
 block12.exits.west = block13;
 block13.exits.east = block12;
 block13.exits.north = block14;
 block14.exits.south = block13;
-block14.things.switch = block14;
 block14.exits.downstairs = block14;
 
 // Things Data
@@ -313,7 +312,7 @@ handle_input = function(act) {
 	else 
 	if(verb === "take") {
 		if(current.items[ood]) {
-			var thing = current.items[ood];
+		var thing = current.items[ood]; //points at items in block, but not item objects that have the take property...
 			if(thing.take === true) {
 			inventory[ood] = thing;
 			delete current.items[ood];
@@ -344,8 +343,9 @@ handle_input = function(act) {
 	}
 	else
 	if(verb === "read") {
-		if(inventory[ood]) {
-			write("");
+		var thing = current.items[ood];
+		if(thing.readable === true) {
+			write(thing.disc);
 		}
 		else {
 			write("You can not read that.");
