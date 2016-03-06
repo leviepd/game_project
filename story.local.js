@@ -308,7 +308,7 @@ handle_input = function(act) {
 			// the exit requested does exist
 			if(current.exits[ood] === block15) { 
 				// You want to go to block15
-				if(lantern.lantern_use === false) {  
+				if(lantern.lit === false) {  
 					// lantern is not lit
 					write(block14.disc2);
 				}
