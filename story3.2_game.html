@@ -178,7 +178,7 @@ key = {
 lantern = {
 	take: true,
 	readable: false,
-	disc: "kjahdfkjadflkjakdjfas",
+	disc: "Much better... You can now enter the basemant.",
 	lantern_use: false
 };
 knife = {
@@ -316,7 +316,8 @@ handle_input = function(act) {
 		// User wants to go somewhere
 		if(current.exits[ood]) {
 			// the exit requested does exist
-			if(current.exits[ood] === block15) {  // the place they want to go block15
+			if(current.exits[ood] === block15) { 
+				// You want to go to block15
 				if(lantern.lantern_use === false) {  
 					// lantern is not lit
 					write(block14.disc2);
@@ -328,6 +329,7 @@ handle_input = function(act) {
 			else {
 				jump_to();
 			}
+			situation();
 		}
 		else {
 			write("can't go that way.");
