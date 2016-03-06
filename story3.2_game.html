@@ -311,19 +311,28 @@ handle_input = function(act) {
 		if(current.exits[ood]) {
 			// the exit requested does exist
 			if(current.exits[ood] === block15) {  // the place they want to go block15
-				if(lantern.lantern_use === false) {  // is the lantern lit
+				if(lantern.lantern_use === false) {  
+					// lantern is not lit
 					write(block14.disc2);
 				}
+				else {
+					jump_to = function() {
+						current = current.exits[ood];
+						if(current.end === true) {
+							gameOver = true;
+						}
+					}
+				}
 			}
-			if(current.end === true) {
-				gameOver = true;
-			}
-			current = current.exits[ood];
-		}
 			else {
-				write("can't go that way.");
+				jump_to();
 			}
-	}
+			situation();
+		}
+		else {
+			write("can't go that way.");
+		}
+	}	
 	else 
 	if(verb === "take") {
 		if(current.items[ood]) {
