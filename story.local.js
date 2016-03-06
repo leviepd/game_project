@@ -37,6 +37,14 @@ block3 = {
 	things: {}
 };
 
+septic_tank = {
+	name: "Old septic tank",
+	disc: "You have fallen to the bottom of an old abandoned septic tank. There is no way out and no one to help you.  You DIE of starvation.",
+	end: true,
+	exits: {},
+	items: {},
+};
+
 block4 = {
 	name: "Left side of House.",
 	disc: "",
@@ -199,6 +207,7 @@ block2.exits.bench = block7;
 block2.items.bat = bat;
 block2.items.key = key;
 block3.exits.west = block1;
+block3.exits.north = septic_tank;
 block4.exits.east = block1;
 block5.items.leaflet = leaflet;
 block5.exits.north = block1;
@@ -380,6 +389,7 @@ handle_input = function(act) {
 	else
 	if(verb === "flip") {
 		if(current.items[ood]) {
+			// the thing they asked me to flip does exist in the room
 			write(lswitch.disc);
 		}
 	}
