@@ -232,14 +232,14 @@ gameOver = false
 
 current = block1;
 
-situation();
-
 // handles changes to input element in html page
 var got_input = function(element) {
 	handle_input(element.value);  // calls handle_input and argues a string
 	element.value = "";  
 	element.scrollIntoView();  
 }
+
+inventory = {};
 
 function situation() {
 	
@@ -273,7 +273,7 @@ function situation() {
 
 }
 
-inventory = {};
+situation();
 
 handle_input = function(act) {
 
@@ -348,6 +348,7 @@ handle_input = function(act) {
 			if(thing === lantern) {
 				write(lantern.disc);
 				lantern.lit = true;
+				situation();
 			}
 			else {
 				write("You can not use that item here.");
@@ -388,10 +389,6 @@ handle_input = function(act) {
 	if(verb === "flip") {
 		if(current.items[ood]) {
 			write(lswitch.disc);
-		}
-		else
-		if() {
-
 		}
 	}
 /*	else 
