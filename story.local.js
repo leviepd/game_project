@@ -42,7 +42,7 @@ block3 = {
 
 septic_tank = {
 	name: "Old septic tank",
-	disc: "You have fallen to the bottom of an old abandoned septic tank. There is no way out and no one to help you.  You DIE of starvation.",
+	disc: "You have fallen to the bottom of an old abandoned septic tank. There is no way out and no one to help you.  You DIE of starvatio. Waaay to gooo DUMBASS!",
 	end: true,
 	exits: {},
 	items: {},
