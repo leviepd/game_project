@@ -295,6 +295,13 @@ situation();
 
 handle_input = function(act) {
 
+	jump_to = function() {
+		current = currnet.exits[ood];
+		if(current.end === true) {
+			gameOver = true;
+		}
+	}
+
 	if(gameOver) {
 		write("Sorry, game over.");
 		return;
@@ -315,12 +322,6 @@ handle_input = function(act) {
 					write(block14.disc2);
 				}
 				else {
-					jump_to = function() {
-						current = current.exits[ood];
-						if(current.end === true) {
-							gameOver = true;
-						}
-					}
 					jump_to();
 				}
 			}
