@@ -79,7 +79,7 @@ block6 = {
 
 block8 = {
 	name: "Bottom of a Pit",
-	disc: "A trap door opens. You fall straight down onto long, rusty lengths of dull rebar. The rebar pentrates your body. You bleed out and DIE!",
+	disc: "A trap door opens. You fall straight down onto long, rusty lengths of re-bar. The rebar impales your body. You bleed out and DIE!",
 	end: true,
 	exits: {},
 	items: {},
@@ -89,7 +89,6 @@ block8 = {
 block9 = {
 	name: "Entry Way",
 	disc: "What a cozy little house. The entry way is extremely small. To the east is a living room. North leads down a narrow hallway that goes to the end of the house. There is a staircase directly to the west that leads upwards... what a strange place for a staircase...",
-	disc2: "You crush everything in sight. Congrats you win!",
 	exits: {},
 	items: {},
 	things: {}
@@ -97,7 +96,7 @@ block9 = {
 
 block7 = {
 	name: "Bench",
-	disc: "A 6 ton weight falls and crushes you.",
+	disc: "A 6 ton weight falls and crushes you... Really? You just had sit on the fucking bench.",
 	end: true,
 	exits: {},
 	items: {},
@@ -141,11 +140,17 @@ block13 = {
 block14 = {
 	name: "Closet",
 	disc: "Inside the closet you find a staircase that leads down into blackness... You would need some light to go down there. There may be a light switch around here somewhere.",
-	disc2: "A dim light turns on and lights up the saircase. You still can not see the bottom...",
-	disc3: "You are to afraid to go down... need more light.",
+	disc2: "You are to afraid to go down... need more light.",
 	exits: {},
 	items: {},
 	things: {}
+};
+
+block15 = {
+	name: "Basement",
+	disc: "The basement is a cold, damp place... You hear water droplets echo almost as if you are in a cavern. The basement is empty besides the piece of paper lying on the floor. There is no aparrent direction you can go besides back up the stairs.",
+	exits: {},
+	items: {}
 };
 
 leaflet = {
@@ -162,7 +167,7 @@ note = {
 
 bat = {
 	take: true,
-	readable: false
+	readable: false,
 };
 
 key = {
@@ -172,7 +177,8 @@ key = {
 
 lantern = {
 	take: true,
-	readable: false
+	readable: false,
+	disc: "kjahdfkjadflkjakdjfas"
 };
 knife = {
 	take: true,
@@ -191,7 +197,8 @@ apple = {
 
 lswitch = {
 	take: false,
-	readable: false
+	readable: false,
+	disc: "The stiarcase is dimly lit... you still can not see the bottom... need more light."
 };
 
 // Game Data
@@ -227,19 +234,13 @@ block12.exits.west = block13;
 block13.exits.east = block12;
 block13.exits.north = block14;
 block14.exits.south = block13;
-block14.exits.downstairs = block14;
-
-// Things Data
-
-
-
-
+block14.items.lantern = lantern;
+block14.exits.downstairs = block15;
+block14.items.switch = lswitch;
 
 gameOver = false
 
 current = block1;
-
-
 
 // handles changes to input element in html page
 var got_input = function(element) {
@@ -287,6 +288,9 @@ inventory = {};
 	note: "Beware, this is no place for wonderers."
 };
 */
+
+var test = false;
+
 situation();
 
 handle_input = function(act) {
@@ -313,7 +317,7 @@ handle_input = function(act) {
 	
 	} 
 		else {
-			write("can't go that way");
+			write("can't go that way.");
 		}
 	}
 	else 
@@ -329,14 +333,15 @@ handle_input = function(act) {
 			else {
 				write("You can not take that.");
 			}
+		}
+	}
 		//	var thing = current.items[ood]   // current.items[ood] = inventory[ood];
 		//	inventory[ood] = thing;
 		
-		}
-	}
-	else 
-	if (verb === "use") {
+/*	else // use bat
+	if(verb === "use") {
 		// user wants to use something
+		
 		if(inventory) {
 			// i am carrying that thing			
 			if(current.name === "Entry Way") {
@@ -348,6 +353,33 @@ handle_input = function(act) {
 			write("You do not have that item.");
 		}
 	}
+*/	
+//	else 
+//	if(current.exits[ood] === block14) {
+	else if(verb === "use") {
+			var thing = inventory[ood];
+				if(thing === lantern) {
+					write(thing.disc);
+					test = true;
+				}
+				else 
+				if(thing !== lantern && thing !== undefined) {
+					write("You can not use that item here.");
+				}
+				else	
+				if(thing === undefined) {
+					write("You don't have that item.");
+				}
+				}
+//				if(test === true) {
+//				if(verb === "go") {
+//					if(current.exits.downstairs) {
+//							current = current.exits.downstairs;
+//							situation();
+//					}		
+//				}
+//		}
+
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
@@ -371,8 +403,8 @@ handle_input = function(act) {
 	}
 	else
 	if(verb === "flip") {
-		if(current.things[ood]) {
-			write(current.disc2);
+		if(current.items[ood]) {
+			write(lswitch.disc);
 		}
 	}
 /*	else 
@@ -383,9 +415,9 @@ handle_input = function(act) {
 	}  
 	*/
 	else {
-		write("That was not an option.");
+		write("That is not an option.");
 	}
-
+};
 	
 
 
@@ -428,7 +460,7 @@ handle_input = function(act) {
 	situation();
 */
 
-}
+
 
 </script>
 
