@@ -351,8 +351,7 @@ handle_input = function(act) {
 			// thing is undefined
 			write("You do not have that item.");
 		} 
-		else
-		if(thing !== undefined) {
+		else {
 			// thing is defined	
 			if(thing === lantern) {
 				write(lantern.disc);
