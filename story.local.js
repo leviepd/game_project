@@ -1,3 +1,6 @@
+//Flix flip
+//Use the knife
+
 write = function(s) {
 	var h = document.getElementById("output").innerHTML; 
 	document.getElementById("output").innerHTML = h + "<br>" + s;
@@ -164,7 +167,7 @@ lantern = {
 	take: true,
 	readable: false,
 	disc: "Much better... You can now enter the basement.",
-	lantern_use: false
+	lit: false
 };
 knife = {
 	take: true,
@@ -184,7 +187,8 @@ apple = {
 lswitch = {
 	take: false,
 	readable: false,
-	disc: "The staircase is dimly lit... you still can not see the bottom... need more light."
+	disc: "The staircase is dimly lit... you still can not see the bottom... need more light.",
+	flipable: true
 };
 
 // Game Data
@@ -228,6 +232,8 @@ gameOver = false
 
 current = block1;
 
+situation();
+
 // handles changes to input element in html page
 var got_input = function(element) {
 	handle_input(element.value);  // calls handle_input and argues a string
@@ -268,8 +274,6 @@ function situation() {
 }
 
 inventory = {};
-
-situation();
 
 handle_input = function(act) {
 
@@ -333,19 +337,22 @@ handle_input = function(act) {
 
 	else 
 	if(verb === "use") {
-			var thing = inventory[ood];
-				if(thing == lantern) {
-					write(thing.disc);
-					lantern.lantern_use = true;
-				}
-				else 
-				if(thing !== lantern && thing !== undefined) {
-					write("You can not use that item here.");
-				}
-				else	
-				if(thing === undefined) {
-					write("You don't have that item.");
-				}
+		var thing = inventory[ood];
+		if(thing === undefined) {
+			// thing is undefined
+			write("You do not have that item.");
+		} 
+		else
+		if(thing !== undefined) {
+			// thing is defined	
+			if(thing === lantern) {
+				write(lantern.disc);
+				lantern.lit = true;
+			}
+			else {
+				write("You can not use that item here.");
+			}
+		}
 	}
 	else
 	if(lantern_use === true) {
@@ -381,6 +388,10 @@ handle_input = function(act) {
 	if(verb === "flip") {
 		if(current.items[ood]) {
 			write(lswitch.disc);
+		}
+		else
+		if() {
+
 		}
 	}
 /*	else 
