@@ -178,7 +178,8 @@ key = {
 lantern = {
 	take: true,
 	readable: false,
-	disc: "kjahdfkjadflkjakdjfas"
+	disc: "kjahdfkjadflkjakdjfas",
+	lantern_use: false
 };
 knife = {
 	take: true,
@@ -305,7 +306,7 @@ handle_input = function(act) {
 	var verb = act[0];												
 	var ood = act[1];	     // act = ["verb", "item"]    
 	// oob object or direction
-	if(verb === "go"){
+	if(verb === "go") { 
 		// User wants to go somewhere
 		if(current.exits[ood]) {
 			// the exit requested does exist
@@ -313,26 +314,30 @@ handle_input = function(act) {
 			if(current.end === true) {
 				gameOver = true;
 			}
-			situation();
-	
-	} 
-		else {
-			write("can't go that way.");
-		}
+			}
+			else 
+			if(current.exits[ood] === block14) {
+				if(lantern.lentern_use === false) {
+					write(block14.disc2);
+				}
+			}
+			else {
+				write("can't go that way.");
+			}
 	}
 	else 
 	if(verb === "take") {
 		if(current.items[ood]) {
-		var thing = current.items[ood]; //points at items in block, but not item objects that have the take property...
-			if(thing.take === true) {
-			inventory[ood] = thing;
-			delete current.items[ood];
-			situation();
-			}
+			var thing = current.items[ood]; //points at items in block, but not item objects that have the take property...
+				if(thing.take === true) {
+					inventory[ood] = thing;
+					delete current.items[ood];
+					situation();
+				}	
 
-			else {
-				write("You can not take that.");
-			}
+				else {
+					write("You can not take that.");
+				}
 		}
 	}
 		//	var thing = current.items[ood]   // current.items[ood] = inventory[ood];
@@ -354,13 +359,12 @@ handle_input = function(act) {
 		}
 	}
 */	
-//	else 
-//	if(current.exits[ood] === block14) {
-	else if(verb === "use") {
+	else 
+	if(verb === "use") {
 			var thing = inventory[ood];
-				if(thing === lantern) {
+				if(thing == lantern) {
 					write(thing.disc);
-					test = true;
+					lantern.lantern_use = true;
 				}
 				else 
 				if(thing !== lantern && thing !== undefined) {
@@ -370,16 +374,16 @@ handle_input = function(act) {
 				if(thing === undefined) {
 					write("You don't have that item.");
 				}
-				}
-//				if(test === true) {
-//				if(verb === "go") {
-//					if(current.exits.downstairs) {
-//							current = current.exits.downstairs;
-//							situation();
-//					}		
-//				}
-//		}
-
+	}
+else
+if(lantern_use === true) {
+	if(verb === "go") {
+		if(current.exits.downstairs) {
+			current = current.exits.downstairs;
+			situation();
+		}		
+	}
+}
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
