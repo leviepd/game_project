@@ -310,15 +310,15 @@ handle_input = function(act) {
 		// User wants to go somewhere
 		if(current.exits[ood]) {
 			// the exit requested does exist
-			current = current.exits[ood]			// actually go there
-			if(current.exits[ood] === block14) {
-				if(lantern.lantern_use === false) {
+			if(current.exits[ood] === block15) {  // the place they want to go block15
+				if(lantern.lantern_use === false) {  // is the lantern lit
 					write(block14.disc2);
 				}
 			}
 			if(current.end === true) {
 				gameOver = true;
 			}
+			current = current.exits[ood];
 		}
 			else {
 				write("can't go that way.");
