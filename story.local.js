@@ -233,7 +233,6 @@ block12.exits.west = block13;
 block13.exits.east = block12;
 block13.exits.north = block14;
 block14.exits.south = block13;
-block14.items.lantern = lantern;
 block14.exits.downstairs = block15;
 block14.items.switch = lswitch;
 
