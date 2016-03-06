@@ -296,7 +296,7 @@ situation();
 handle_input = function(act) {
 
 	jump_to = function() {
-		current = currnet.exits[ood];
+		current = current.exits[ood];
 		if(current.end === true) {
 			gameOver = true;
 		}
