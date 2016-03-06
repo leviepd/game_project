@@ -290,7 +290,6 @@ inventory = {};
 };
 */
 
-var test = false;
 
 situation();
 
@@ -322,12 +321,12 @@ handle_input = function(act) {
 							gameOver = true;
 						}
 					}
+					jump_to();
 				}
 			}
 			else {
 				jump_to();
 			}
-			situation();
 		}
 		else {
 			write("can't go that way.");
