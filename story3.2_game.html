@@ -311,16 +311,15 @@ handle_input = function(act) {
 		if(current.exits[ood]) {
 			// the exit requested does exist
 			current = current.exits[ood]			// actually go there
-			if(current.end === true) {
-				gameOver = true;
-			}
-			}
-			else 
 			if(current.exits[ood] === block14) {
-				if(lantern.lentern_use === false) {
+				if(lantern.lantern_use === false) {
 					write(block14.disc2);
 				}
 			}
+			if(current.end === true) {
+				gameOver = true;
+			}
+		}
 			else {
 				write("can't go that way.");
 			}
