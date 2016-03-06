@@ -284,13 +284,6 @@ function situation() {
 
 inventory = {};
 
-/*var notes = {
-	leaflet: "Labyrinth is a game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
-	note: "Beware, this is no place for wonderers."
-};
-*/
-
-
 situation();
 
 handle_input = function(act) {
@@ -352,23 +345,7 @@ handle_input = function(act) {
 	}
 		//	var thing = current.items[ood]   // current.items[ood] = inventory[ood];
 		//	inventory[ood] = thing;
-		
-/*	else // use bat
-	if(verb === "use") {
-		// user wants to use something
-		
-		if(inventory) {
-			// i am carrying that thing			
-			if(current.name === "Entry Way") {
-				write(current.disc2);
-				gameOver = true;
-			}
-		}
-		else {
-			write("You do not have that item.");
-		}
-	}
-*/	
+
 	else 
 	if(verb === "use") {
 			var thing = inventory[ood];
@@ -385,15 +362,15 @@ handle_input = function(act) {
 					write("You don't have that item.");
 				}
 	}
-else
-if(lantern_use === true) {
-	if(verb === "go") {
-		if(current.exits.downstairs) {
-			current = current.exits.downstairs;
-			situation();
-		}		
-	}
-}
+	else
+	if(lantern_use === true) {
+		if(verb === "go") {
+			if(current.exits.downstairs) {
+				current = current.exits.downstairs;
+				situation();
+			}		
+		}	
+	}	
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
@@ -403,7 +380,7 @@ if(lantern_use === true) {
 		else
 		if(thing.readable === true) {
 			write(thing.disc);
-	}
+		}
 	}
 	else
 	if(verb === "sit") {
@@ -432,49 +409,6 @@ if(lantern_use === true) {
 		write("That is not an option.");
 	}
 };
-	
-
-
-/*
-
-	if(act === "bat" && pack === "") {  //prompt "usebat" && pack;
-		write("you don't have a bat");
-	}
-//	else
-	if (act === "bat" && pack !== "") { // prompt "usebat" && pack === current.things[act];  ... pack is defined
-		// gameover
-		write(current.disc2);
-		return;
-	}
-//	else
-	if(act === "sit") {
-		// gameover
-		write(current.disc2);
-		return;
-	}
-/*	else  {
-		if(current.exits[act]) {  //current.action.exits[act] ???
-			current = current.exits[act]   // the current location is whatever was promped
-		
-			if(current.end) {    // if current.end is true then gameOver is also true --- ends the game
-				gameOver = true;
-			}
-		}
-		else
-		if(current.items[act]) {   // the current item is whatever was prompted
-			pack = current.items[act];  // the item is the pack...
-			delete current.items[act];
-		} 
-		else {
-			write("can't go that way...");  // only if !== current.exits[act]
-		}
-	}
-
-
-	situation();
-*/
-
-
 
 </script>
 
