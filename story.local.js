@@ -154,7 +154,8 @@ note = {
 
 bat = {
 	take: true,
-	readable: false,
+	readable: true,
+	disc: "Vahmpyre"
 };
 
 key = {
