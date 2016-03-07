@@ -1,19 +1,12 @@
-//Flix flip
-//Use the knife
+// fix flip
+// reorder if/else
+// use the knife
+// be able to drop items
 
 write = function(s) {
 	var h = document.getElementById("output").innerHTML; 
 	document.getElementById("output").innerHTML = h + "<br>" + s;
 }
-
-/*var verb = {
-	turn: "turn"
-	go: "go",
-	take: "take",
-	use: "use",
-	read: "read",
-};
-*/
 
 block1 = {
 	name: "Front Yard",
@@ -287,6 +280,7 @@ handle_input = function(act) {
 
 	jump_to = function() {
 		current = current.exits[ood];
+		situation();
 		if(current.end === true) {
 			gameOver = true;
 		}
@@ -313,29 +307,38 @@ handle_input = function(act) {
 					write(block14.disc2);
 				}
 				else {
+					// lanern is lit. Go downstairs
 					jump_to();
 				}
 			}
 			else {
+				// Go to next block is not block15
 				jump_to();
 			}
-			situation();
 		}
 		else {
+			// the exit requested does not exist
 			write("can't go that way.");
 		}
 	}	
 	else 
 	if(verb === "take") {
+		// user want to take something
 		if(current.items[ood]) {
-			var thing = current.items[ood]; //points at items in block, but not item objects that have the take property...
+			// the item requested does exist
+			var thing = current.items[ood]; 
+			// "thing" puts a hold on items in the block	
 				if(thing.take === true) {
+					// flag checks out
 					inventory[ood] = thing;
+					// "thing" puts a hold on invevtory
 					delete current.items[ood];
+					// the item is no longer in the block
 					situation();
 				}	
 
 				else {
+					// the item requested does not exist
 					write("You can not take that.");
 				}
 		}
@@ -355,30 +358,25 @@ handle_input = function(act) {
 			if(thing === lantern) {
 				write(lantern.disc);
 				lantern.lit = true;
+				// The lantern is lit
 				situation();
 			}
 			else {
+				// thing is not the lantern
 				write("You can not use that item here.");
 			}
 		}
 	}
 	else
-	if(lantern_use === true) {
-		if(verb === "go") {
-			if(current.exits.downstairs) {
-				current = current.exits.downstairs;
-				situation();
-			}		
-		}	
-	}	
-	else
 	if(verb === "read") {
 		var thing = inventory[ood];
+		// "thing" puts a hold on inventory 
 		if(thing === undefined) {
 			write("You can not read that.");
 		}
 		else
 		if(thing.readable === true) {
+			// flag checks out
 			write(thing.disc);
 		}
 	}
