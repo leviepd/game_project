@@ -326,19 +326,18 @@ handle_input = function(act) {
 			// the item requested does exist
 			var thing = current.items[ood]; 
 			// "thing" puts a hold on items in the block	
-				if(thing.take === true) {
-					// flag checks out
-					inventory[ood] = thing;
-					// "thing" puts a hold on invevtory
-					delete current.items[ood];
-					// the item is no longer in the block
-					situation();
-				}	
-
-				else {
+			if(thing.take === true) {
+				// flag checks out
+				inventory[ood] = thing;
+				// "thing" puts a hold on invevtory
+				delete current.items[ood];
+				// the item is no longer in the block
+				situation();
+			}	
+			else {
 					// the item requested does not exist
 					write("You can not take that.");
-				}
+			}
 		}
 	}
 		//	var thing = current.items[ood]   // current.items[ood] = inventory[ood];
