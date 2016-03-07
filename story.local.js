@@ -398,9 +398,14 @@ handle_input = function(act) {
 	}
 	else
 	if(verb === "flip") {
-		if(current.items[ood]) {
-			// the thing they asked me to flip does exist in the room
-			write(lswitch.disc);
+		if(current.items[ood] === undefined) {
+			// The exit requested does not exist
+			write("You can not flip that.");
+		}
+		else {
+			// The exit requested does exist.
+			write(lswitch.disc); 
+			// Later use flag
 		}
 	}
 /*	else 
