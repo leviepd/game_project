@@ -171,7 +171,8 @@ lantern = {
 };
 knife = {
 	take: true,
-	readable: false
+	readable: true,
+	disc: "Supa Stabby"
 };
 
 bottle = {
@@ -182,7 +183,8 @@ bottle = {
 
 apple = {
 	take: true,
-	readable: false
+	readable: false,
+	disc: "This is the best tasting apple you have ever had! As soon as you finish, your entire body stiffens... You can not move... You have become a statue... because you can not move you, starve to DEATH!"
 };
 
 lswitch = {
@@ -352,16 +354,19 @@ handle_input = function(act) {
 			// thing is undefined
 			write("You do not have that item.");
 		} 
-		else {
-			// thing is defined	
+		else { // thing is defined
 			if(thing === lantern) {
 				write(lantern.disc);
 				lantern.lit = true;
 				// The lantern is lit
 				situation();
 			}
+			else	
+			if(thing === apple) {
+				write(apple.disc);
+				gameOver = true;
+			}
 			else {
-				// thing is not the lantern
 				write("You can not use that item here.");
 			}
 		}
