@@ -1,7 +1,5 @@
-// fix flip
-// reorder if/else
-// use the knife
-// be able to drop items
+// Use the knife
+// Be able to drop items
 
 write = function(s) {
 	var h = document.getElementById("output").innerHTML; 
