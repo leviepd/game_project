@@ -175,7 +175,8 @@ knife = {
 
 bottle = {
 	take: true,
-	readable: false
+	readable: true,
+	disc: "The contents of this bottle is toxic. We don't know exactly what it is... just DON'T DRINK IT! Flavor: Cherry."
 };
 
 apple = {
