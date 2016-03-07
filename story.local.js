@@ -382,12 +382,18 @@ handle_input = function(act) {
 	}
 	else
 	if(verb === "sit") {
-		if(current.exits[ood]) {
-			current = current.exits[ood]
+		if(current.exits[ood] === undefined) {
+			// The exit requested does not exist
+			write("You can not sit there.");
+		}
+		else {
+			// the exit requeated does exist
+			current = current.exits[ood];
+			situation();
 			if(current.end) {
+				// flag... if true then gameOver is true
 				gameOver = true;
 			}
-			situation();
 		}
 	}
 	else
