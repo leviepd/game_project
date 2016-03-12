@@ -145,29 +145,30 @@ leaflet = {
 	readable: true,
 	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
 	end: false,
-	read: true,
+	endFight: false,
 };
 
 note = {
 	take: true,
 	readable: true,
 	disc: "Beware, this is no place for wanderers",
-	read: true,
 	end: false,
+	endFight: false,
 };
 
 bat = {
 	take: true,
 	readable: true,
 	disc: "Vahmpyre",
-	read: true,
 	end: false,
+	endFight: false,
 };
 
 key = {
 	take: true,
 	readable: false,
 	end: false,
+	endFight: false,
 };
 
 lantern = {
@@ -176,21 +177,22 @@ lantern = {
 	disc: "Much better... You can now enter the basement.",
 	lit: false,
 	end: false,
+	endFight: false,
 };
 knife = {
 	take: true,
 	readable: true,
 	disc: "Supa Stabby",
-	read: true,
 	end: false,
+	endFight: false,
 };
 
 bottle = {
 	take: true,
 	readable: true,
 	disc: "The contents of this bottle is toxic. We don't know exactly what it is... just DON'T DRINK IT! Flavor: Cherry.",
-	read: true,
 	end: false,
+	endFight: false,
 };
 
 apple = {
@@ -198,21 +200,22 @@ apple = {
 	readable: false,
 	disc: "This is the best tasting apple you have ever had! As soon as you finish, your entire body stiffens... You can not move... You have become a statue... because you can not move you, starve to DEATH!",
 	end: false,
+	endFight: false,
 };
 
 lswitch = {
 	take: false,
 	readable: false,
 	disc: "The staircase is dimly lit... you still can not see the bottom... need more light.",
-	flipable: true
+	flipable: true,
 };
 
 paper = {
 	take: true,
 	readable: true,
-	read: false,
 	disc: "You are nearly to the end of this fantastic adventure. Thanks for playing. - Maker",
 	end: false,
+	endFight: false,
 };
 
 fight = {
@@ -221,7 +224,6 @@ fight = {
 	loss: "The duranged teen lunges at you in the of an eye. The last thing you ever see is long fang like teeth inches from your throat...", 
 	disc3: "",
 	exits: {},
-	turned: false,
 };
 
 // Read the paper... if read paper... then turn around and fight
@@ -393,7 +395,7 @@ handle_input = function(act) {
 			write("You do not have that item.");
 		}
 		else
-		if(thing !== undefined) { // thing is defined
+		if(thing !== undefined && thing.endFight === false) { // thing is defined
 			if(thing === lantern) {
 				write(lantern.disc);
 				lantern.lit = true;
@@ -408,13 +410,14 @@ handle_input = function(act) {
 				write("You can not use that item here.");
 			}
 		}
-		else 
-		if(thing !== undefined && endFight === true) {
+		else
+		if(thing !== undefined && thing.endFight === true) {
 			if(thing === bottle) {
 				write("kjahdflkjhasdlkfjhldskjfhaksdjhf");
-				}
+			}
 			else {
 				write(fight.loss);
+				gameOver = true;
 			}
 		}
 	}
@@ -435,12 +438,12 @@ handle_input = function(act) {
 		}
 		// end of common things you can read
 		// below is game ending... you have to read the paper to get to the end of the game.
-		else { // thing.readable === true;
+		else 
+		if(thing.readable === true) {
 			write(thing.disc);
 			// write message if thing.readable === true
-			if(thing.read === false) {
-				// checks flag
-				endFight = true;	
+			if(thing === paper) {
+				thing.endFight = true;
 				write("duranged teen pops out of nowhere and wishes to fight.");
 /*				// turnaround is now a "go" option... then show that by calling situation
 				if(fight.turned === true) {
