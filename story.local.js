@@ -143,48 +143,60 @@ block15 = {
 leaflet = {
 	take: true,
 	readable: true,
-	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker"
+	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
+	end: false,
 };
 
 note = {
 	take: true,
 	readable: true,
-	disc: "Beware, this is no place for wanderers"
+	disc: "Beware, this is no place for wanderers",
+	read: true,
+	end: false,
 };
 
 bat = {
 	take: true,
 	readable: true,
-	disc: "Vahmpyre"
+	disc: "Vahmpyre",
+	read: true,
+	end: false,
 };
 
 key = {
 	take: true,
-	readable: false
+	readable: false,
+	end: false,
 };
 
 lantern = {
 	take: true,
 	readable: false,
 	disc: "Much better... You can now enter the basement.",
-	lit: false
+	lit: false,
+	end: false,
 };
 knife = {
 	take: true,
 	readable: true,
-	disc: "Supa Stabby"
+	disc: "Supa Stabby",
+	read: true,
+	end: false,
 };
 
 bottle = {
 	take: true,
 	readable: true,
-	disc: "The contents of this bottle is toxic. We don't know exactly what it is... just DON'T DRINK IT! Flavor: Cherry."
+	disc: "The contents of this bottle is toxic. We don't know exactly what it is... just DON'T DRINK IT! Flavor: Cherry.",
+	read: true,
+	end: false,
 };
 
 apple = {
 	take: true,
 	readable: false,
-	disc: "This is the best tasting apple you have ever had! As soon as you finish, your entire body stiffens... You can not move... You have become a statue... because you can not move you, starve to DEATH!"
+	disc: "This is the best tasting apple you have ever had! As soon as you finish, your entire body stiffens... You can not move... You have become a statue... because you can not move you, starve to DEATH!",
+	end: false,
 };
 
 lswitch = {
@@ -193,6 +205,28 @@ lswitch = {
 	disc: "The staircase is dimly lit... you still can not see the bottom... need more light.",
 	flipable: true
 };
+
+paper = {
+	take: true,
+	readable: true,
+	read: false,
+	disc: "You are nearly to the end of this fantastic adventure. Thanks for playing. - Maker",
+	end: false,
+};
+
+fight = {
+	name: "Duranged Teen",
+	disc: "You turn around to a most horrid sight.",
+	loss: "The duranged teen lunges at you in the of an eye. The last thing you ever see is long fang like teeth inches from your throat...", 
+	disc3: "",
+	exits: {},
+	turned: false,
+};
+
+// Read the paper... if read paper... then turn around and fight
+// die if use knife
+// need the key, the apple, and the bat
+// use the items in a certian order to beat the enemy...
 
 // Game Data
 
@@ -230,8 +264,9 @@ block13.exits.north = block14;
 block14.exits.south = block13;
 block14.exits.downstairs = block15;
 block14.items.switch = lswitch;
+block15.items.paper = paper;
 
-gameOver = false
+gameOver = false;
 
 current = block1;
 
@@ -346,7 +381,6 @@ handle_input = function(act) {
 	}
 		//	var thing = current.items[ood]   // current.items[ood] = inventory[ood];
 		//	inventory[ood] = thing;
-
 	else 
 	if(verb === "use") {
 		var thing = inventory[ood];
@@ -371,17 +405,66 @@ handle_input = function(act) {
 			}
 		}
 	}
+
+
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
 		// "thing" puts a hold on inventory 
 		if(thing === undefined) {
+			// thing is not in the inventory.
 			write("You can not read that.");
 		}
-		else
-		if(thing.readable === true) {
-			// flag checks out
+		else 
+		if(thing.readable === false) {
+			// thing is in the inventory, but not readable.
+			write("You can not read that.");
+		}
+		// end of common things you can read
+		// below is game ending... you have to read the paper to get to the end of the game.
+		else { // thing.readable === true;
 			write(thing.disc);
+			// write message if thing.readable === true
+			if(paper.read === false) {
+				// checks flag
+				block15.exits.turnaround = fight;
+				situation();
+				// turnaround is now a "go" option... then show that by calling situation
+				if(fight.turned === true) {
+					// flag checks out
+					if(verb === "use" && current.exits[ood] === fight) {
+						var thing = inventory[ood];
+						// "thing" puts a hold on inventory
+						if(thing === undefined) {
+							// if type anything that is not in the inventory then do this
+							write("You do not have that item");
+							write(fight.loss);
+							gameOver = true;
+							// write what the teenager does and then ends the game
+						}
+						else { // if things are defined!!! !== undefined!
+							if(thing === bottle) {
+								write("KJHSDFKJHSDFKJSDF");
+							}
+							else {
+								write(fight.loss);
+								gameOver = true;
+							}
+						}
+					}
+					else { // anything but verb === "use"
+						write("That was not an option.");
+						situation();
+					}
+				}
+				else { // thing.turned === anything but true
+					situation();
+				}
+			}
+			else {
+				// paper.read is already true so call function
+				situation();
+			}
 		}
 	}
 	else
