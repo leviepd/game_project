@@ -145,6 +145,7 @@ leaflet = {
 	readable: true,
 	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
 	end: false,
+	read: true,
 };
 
 note = {
@@ -265,6 +266,7 @@ block14.exits.south = block13;
 block14.exits.downstairs = block15;
 block14.items.switch = lswitch;
 block15.items.paper = paper;
+block15.exits.upstairs = block14;
 
 gameOver = false;
 
@@ -314,6 +316,8 @@ function situation() {
 situation();
 
 handle_input = function(act) {
+
+	endFight = false;
 
 	jump_to = function() {
 		current = current.exits[ood];
@@ -387,13 +391,13 @@ handle_input = function(act) {
 		if(thing === undefined) {
 			// thing is undefined
 			write("You do not have that item.");
-		} 
-		else { // thing is defined
+		}
+		else
+		if(thing !== undefined) { // thing is defined
 			if(thing === lantern) {
 				write(lantern.disc);
 				lantern.lit = true;
 				// The lantern is lit
-				situation();
 			}
 			else	
 			if(thing === apple) {
@@ -402,6 +406,15 @@ handle_input = function(act) {
 			}
 			else {
 				write("You can not use that item here.");
+			}
+		}
+		else 
+		if(thing !== undefined && endFight === true) {
+			if(thing === bottle) {
+				write("kjahdflkjhasdlkfjhldskjfhaksdjhf");
+				}
+			else {
+				write(fight.loss);
 			}
 		}
 	}
@@ -425,11 +438,11 @@ handle_input = function(act) {
 		else { // thing.readable === true;
 			write(thing.disc);
 			// write message if thing.readable === true
-			if(paper.read === false) {
+			if(thing.read === false) {
 				// checks flag
-				block15.exits.turnaround = fight;
-				situation();
-				// turnaround is now a "go" option... then show that by calling situation
+				endFight = true;	
+				write("duranged teen pops out of nowhere and wishes to fight.");
+/*				// turnaround is now a "go" option... then show that by calling situation
 				if(fight.turned === true) {
 					// flag checks out
 					if(verb === "use" && current.exits[ood] === fight) {
@@ -459,11 +472,7 @@ handle_input = function(act) {
 				}
 				else { // thing.turned === anything but true
 					situation();
-				}
-			}
-			else {
-				// paper.read is already true so call function
-				situation();
+*/				
 			}
 		}
 	}
