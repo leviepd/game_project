@@ -164,6 +164,7 @@ bat = {
 key = {
 	take: true,
 	readable: false,
+	endingMove: "You charge with the key above you head in a finishing move. You stab the teen directly in the eye for a gruesome finish. You survived the Labyrinth.",
 	end: false,
 };
 
@@ -185,6 +186,8 @@ bottle = {
 	take: true,
 	readable: true,
 	disc: "The contents of this bottle is toxic. We don't know exactly what it is... just DON'T DRINK IT! Flavor: Cherry.",
+	endingMove: "You down the entire bottle. Surprisingly, it tastes amazing. The liqiud pumps you with energy.",
+	used: false,	
 	end: false,
 };
 
@@ -192,6 +195,8 @@ apple = {
 	take: true,
 	readable: false,
 	disc: "This is the best tasting apple you have ever had! As soon as you finish, your entire body stiffens... You can not move... You have become a statue... because you can not move you, starve to DEATH!",
+	endingMove: "You throw the apple as hard as you can. It hits the teen square in the forehead. The teen appears to diszzy and confused!",
+	used: false,
 	end: false,
 };
 
@@ -212,7 +217,7 @@ paper = {
 fight = {
 	name: "Duranged Teen",
 	disc: "You turn around to a most horrid sight.",
-	loss: "The duranged teen lunges at you in the of an eye. The last thing you ever see is long fang like teeth inches from your throat...", 
+	loss: "The duranged teen lunges at you in the blink of an eye. The last thing you ever see is long fang like teeth inches from your throat...", 
 	disc3: "",
 	exits: {},
 };
@@ -386,13 +391,10 @@ handle_input = function(act) {
 			// thing is undefined
 			write("You do not have that item.");
 		}
-		else {
+		else { // thing is defined
 				if(endFight === false) {
-					if(thing === apple) {
-						write(apple.disc)
-						gameOver = true;
-					}
-					else
+					// flag changes to true when player reads the paper
+					var thing = inventory[ood];
 					if(thing === lantern) {
 						thing.lit = true;
 						write(thing.disc);
@@ -402,8 +404,31 @@ handle_input = function(act) {
 					}
 				}
 				if(endFight === true) {
+					var thing = inventory[ood];
 					if(thing === bottle) {
-						write("ljadflkjhasdkfljhasdlkfjhasd");
+						write(thing.endingMove);
+						bottle.used = true;
+					}
+					else
+					if(bottle.used === true) {
+						if(thing === apple) {
+							write(thing.endingMove);
+							apple.used = true;
+						}
+						else {
+							write(fight.loss);
+							gameOver = true;
+						}
+					}
+					else 
+					if(apple.used === true) {
+						if(thing === key) {
+							write(thing.endingMove);
+						}
+						else {
+							write(fight.loss);
+							gameOver = true;
+						}
 					}
 					else {
 						write(fight.loss);
@@ -411,29 +436,7 @@ handle_input = function(act) {
 					}
 				}
 			}
-		}
-/*
-			else	
-			if(thing === apple) {
-				write(apple.disc);
-				gameOver = true;
-			}
-			else {
-				write("You can not use that item here.");
-			}
-		}
-		else
-		if(thing !== undefined && thing.endFight === true) {
-			if(thing === bottle) {
-				write("kjahdflkjhasdlkfjhldskjfhaksdjhf");
-			}
-			else {
-				write(fight.loss);
-				gameOver = true;
-			}
-		}
-	}
-*/
+		}	
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
