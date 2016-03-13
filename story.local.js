@@ -145,7 +145,6 @@ leaflet = {
 	readable: true,
 	disc: "Labyrinth is game of adventure. Beware of any danger out there. Happy Exploring.  - Maker",
 	end: false,
-	endFight: false,
 };
 
 note = {
@@ -153,7 +152,6 @@ note = {
 	readable: true,
 	disc: "Beware, this is no place for wanderers",
 	end: false,
-	endFight: false,
 };
 
 bat = {
@@ -161,14 +159,12 @@ bat = {
 	readable: true,
 	disc: "Vahmpyre",
 	end: false,
-	endFight: false,
 };
 
 key = {
 	take: true,
 	readable: false,
 	end: false,
-	endFight: false,
 };
 
 lantern = {
@@ -177,14 +173,12 @@ lantern = {
 	disc: "Much better... You can now enter the basement.",
 	lit: false,
 	end: false,
-	endFight: false,
 };
 knife = {
 	take: true,
 	readable: true,
 	disc: "Supa Stabby",
 	end: false,
-	endFight: false,
 };
 
 bottle = {
@@ -192,7 +186,6 @@ bottle = {
 	readable: true,
 	disc: "The contents of this bottle is toxic. We don't know exactly what it is... just DON'T DRINK IT! Flavor: Cherry.",
 	end: false,
-	endFight: false,
 };
 
 apple = {
@@ -200,7 +193,6 @@ apple = {
 	readable: false,
 	disc: "This is the best tasting apple you have ever had! As soon as you finish, your entire body stiffens... You can not move... You have become a statue... because you can not move you, starve to DEATH!",
 	end: false,
-	endFight: false,
 };
 
 lswitch = {
@@ -215,7 +207,6 @@ paper = {
 	readable: true,
 	disc: "You are nearly to the end of this fantastic adventure. Thanks for playing. - Maker",
 	end: false,
-	endFight: false,
 };
 
 fight = {
@@ -317,9 +308,10 @@ function situation() {
 
 situation();
 
+var endFight = false;
+
 handle_input = function(act) {
 
-	endFight = false;
 
 	jump_to = function() {
 		current = current.exits[ood];
@@ -350,12 +342,12 @@ handle_input = function(act) {
 					write(block14.disc2);
 				}
 				else {
-					// lanern is lit. Go downstairs
+					// lantern is lit. Go downstairs
 					jump_to();
 				}
 			}
 			else {
-				// Go to next block is not block15
+				// Go to next block that is not block15
 				jump_to();
 			}
 		}
@@ -394,13 +386,33 @@ handle_input = function(act) {
 			// thing is undefined
 			write("You do not have that item.");
 		}
-		else
-		if(thing !== undefined && thing.endFight === false) { // thing is defined
-			if(thing === lantern) {
-				write(lantern.disc);
-				lantern.lit = true;
-				// The lantern is lit
+		else {
+				if(endFight === false) {
+					if(thing === apple) {
+						write(apple.disc)
+						gameOver = true;
+					}
+					else
+					if(thing === lantern) {
+						thing.lit = true;
+						write(thing.disc);
+					}
+					else {
+						write("You can not use that item here.");
+					}
+				}
+				if(endFight === true) {
+					if(thing === bottle) {
+						write("ljadflkjhasdkfljhasdlkfjhasd");
+					}
+					else {
+						write(fight.loss);
+						gameOver = true;
+					}
+				}
 			}
+		}
+/*
 			else	
 			if(thing === apple) {
 				write(apple.disc);
@@ -421,8 +433,7 @@ handle_input = function(act) {
 			}
 		}
 	}
-
-
+*/
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
@@ -443,7 +454,7 @@ handle_input = function(act) {
 			write(thing.disc);
 			// write message if thing.readable === true
 			if(thing === paper) {
-				thing.endFight = true;
+				endFight = true;
 				write("duranged teen pops out of nowhere and wishes to fight.");
 /*				// turnaround is now a "go" option... then show that by calling situation
 				if(fight.turned === true) {
