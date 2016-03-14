@@ -267,6 +267,7 @@ block15.items.paper = paper;
 block15.exits.upstairs = block14;
 
 gameOver = false;
+gameOver2 = false;
 
 current = block1;
 
@@ -313,7 +314,7 @@ function situation() {
 
 situation();
 
-var endFight = false;
+var endFight = 0;
 
 handle_input = function(act) {
 
@@ -328,6 +329,10 @@ handle_input = function(act) {
 
 	if(gameOver) {
 		write("Sorry, game over.");
+		return;
+	}
+	if(gameOver2) {
+		write("Congrats, you win!");
 		return;
 	}
 
@@ -392,9 +397,7 @@ handle_input = function(act) {
 			write("You do not have that item.");
 		}
 		else { // thing is defined
-				if(endFight === false) {
-					// flag changes to true when player reads the paper
-					var thing = inventory[ood];
+				if(endFight === 0) {
 					if(thing === lantern) {
 						thing.lit = true;
 						write(thing.disc);
@@ -403,17 +406,16 @@ handle_input = function(act) {
 						write("You can not use that item here.");
 					}
 				}
-				if(endFight === true) {
-					var thing = inventory[ood];
+				else { // endFight is anything but zero
 					if(thing === bottle) {
 						write(thing.endingMove);
-						bottle.used = true;
+						endFight = 2;
 					}
 					else
-					if(bottle.used === true) {
+					if(endFight === 2) {
 						if(thing === apple) {
 							write(thing.endingMove);
-							apple.used = true;
+							endFight = 3;
 						}
 						else {
 							write(fight.loss);
@@ -421,9 +423,10 @@ handle_input = function(act) {
 						}
 					}
 					else 
-					if(apple.used === true) {
+					if(endFight === 3) {
 						if(thing === key) {
 							write(thing.endingMove);
+							gameOver2 = true;
 						}
 						else {
 							write(fight.loss);
@@ -457,7 +460,7 @@ handle_input = function(act) {
 			write(thing.disc);
 			// write message if thing.readable === true
 			if(thing === paper) {
-				endFight = true;
+				endFight = 1;
 				write("duranged teen pops out of nowhere and wishes to fight.");
 /*				// turnaround is now a "go" option... then show that by calling situation
 				if(fight.turned === true) {
