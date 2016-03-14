@@ -224,7 +224,6 @@ fight = {
 block1.exits.north = block2;
 block1.exits.south = block5;
 block1.exits.east = block3;
-block1.exits.west = block4;
 block2.exits.south = block1;
 block2.exits.north = block6;
 block2.exits.bench = block7;
