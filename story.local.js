@@ -322,7 +322,7 @@ handle_input = function(act) {
 	act = act.split(" ");     // act is ["", ""]
 	var verb = act[0];												
 	var ood = act[1];	     // act = ["verb", "item"]    
-	// oob object or direction
+	// ood object or direction
 	if(verb === "go") { 
 		// User wants to go somewhere
 		if(current.exits[ood]) {
