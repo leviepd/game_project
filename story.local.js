@@ -39,14 +39,6 @@ septic_tank = {
 	items: {},
 };
 
-block4 = {
-	name: "Left side of House.",
-	disc: "",
-	exits: {},
-	items: {},
-	things: {}
-};
-
 block5 = {
 	name: "Mailbox",
 	disc: "The mailbox appears to be wide open.",
@@ -240,7 +232,6 @@ block2.items.bat = bat;
 block2.items.key = key;
 block3.exits.west = block1;
 block3.exits.north = septic_tank;
-block4.exits.east = block1;
 block5.items.leaflet = leaflet;
 block5.exits.north = block1;
 block6.exits.rightknob = block8;
