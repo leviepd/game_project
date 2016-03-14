@@ -1,5 +1,3 @@
-// Use the knife
-// Be able to drop items
 
 write = function(s) {
 	var h = document.getElementById("output").innerHTML; 
@@ -11,7 +9,7 @@ block1 = {
 	disc: "It is a bright, sunny, summer day. There is a house to the north. The grass is sunbaked, and brown.",
 	exits: {},
 	items: {},
-	things: {}
+	rdmcmd: {},
 	
 };
 
@@ -214,13 +212,7 @@ fight = {
 	exits: {},
 };
 
-// Read the paper... if read paper... then turn around and fight
-// die if use knife
-// need the key, the apple, and the bat
-// use the items in a certian order to beat the enemy...
-
 // Game Data
-
 block1.exits.north = block2;
 block1.exits.south = block5;
 block1.exits.east = block3;
@@ -386,7 +378,7 @@ handle_input = function(act) {
 			// thing is undefined
 			write("You do not have that item.");
 		}
-		else { // thing is defined
+		else { /* // thing is defined
 				if(endFight === 0) {
 					if(thing === lantern) {
 						thing.lit = true;
@@ -428,8 +420,53 @@ handle_input = function(act) {
 						gameOver = true;
 					}
 				}
+			}  
+		} */
+	
+	switch(endFight) {
+		case 0:
+			if(thing === lantern) {
+				thing.lit = true;
+				write(thing.disc);
 			}
-		}	
+			else {
+				write("You can not use that item here.");
+			}
+			break;
+		case 1: 
+			if(thing === bottle) {
+				write(thing.endingMove);
+				endFight = 2;
+			}
+			else {
+				write(fight.loss);
+				gameOver = true;
+			}
+			break;
+		case 2:
+			if(thing === apple) {
+				write(thing.endingMove);
+				endFight = 3;
+			}
+			else {
+				write(fight.loss);
+				gameOver = true;
+			}
+			break;
+		case 3:
+			if(thing === key) {
+				write(thing.endingMove);
+				gameOver2 = true;
+			}
+			else {
+				write(fight.loss);
+				gameOver = true 
+			}
+			break;
+		}
+		}
+	}
+	// switch statement instead of if/else		
 	else
 	if(verb === "read") {
 		var thing = inventory[ood];
@@ -452,40 +489,8 @@ handle_input = function(act) {
 			if(thing === paper) {
 				endFight = 1;
 				write("duranged teen pops out of nowhere and wishes to fight.");
-/*				// turnaround is now a "go" option... then show that by calling situation
-				if(fight.turned === true) {
-					// flag checks out
-					if(verb === "use" && current.exits[ood] === fight) {
-						var thing = inventory[ood];
-						// "thing" puts a hold on inventory
-						if(thing === undefined) {
-							// if type anything that is not in the inventory then do this
-							write("You do not have that item");
-							write(fight.loss);
-							gameOver = true;
-							// write what the teenager does and then ends the game
-						}
-						else { // if things are defined!!! !== undefined!
-							if(thing === bottle) {
-								write("KJHSDFKJHSDFKJSDF");
-							}
-							else {
-								write(fight.loss);
-								gameOver = true;
-							}
-						}
-					}
-					else { // anything but verb === "use"
-						write("That was not an option.");
-						situation();
-					}
-				}
-				else { // thing.turned === anything but true
-					situation();
-*/				
 			}
 		}
-	}
 	else
 	if(verb === "sit") {
 		if(current.exits[ood] === undefined) {
@@ -514,15 +519,9 @@ handle_input = function(act) {
 			// Later use flag
 		}
 	}
-/*	else 
-	if(verb === "turn") {
-		if(current.things[ood]) {
-			current = curruent.things[ood]
-		}
-	}  
-	*/
 	else {
 		write("That is not an option.");
 	}
-};
+}
+}
 
