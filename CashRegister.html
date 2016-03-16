@@ -4,9 +4,7 @@
 
 <p><h2>Cash Register</h2></p>
 
-Enter Item, Quantity: <input id=command onchange"input_data(this)">
-
-<button onclick="input_data()">Submit</button>
+Enter Item, Quantity: <input id=command onchange="input_data(this)">
 
 <p id="box"></p>
 
@@ -20,24 +18,24 @@ var register = {
 
 	scan: function(item, quantity) {
 		switch(item) {
-			case "SNES":
+			case "snes":
 				this.add(75 * quantity);
 				break;
-			case "Sega":
+			case "sega":
 				this.add(45 * quantity);
 				break;
-			case "Ps1":
+			case "ps1":
 				this.add(40 * quantity);
 				break;
-			case "GameCube":
+			case "gamecube":
 				this.add(40 * quantity);
 				break;
 		}	
 		return true;
-	}
+	},
 };
 
-function input_data() {
+function input_data(element) {
 	handle_data(element.value);
 	element.value = "";
 	element.scrollIntoView();
@@ -48,22 +46,17 @@ handle_data = function(data) {
 	data = data.split(" "); // split makes two strings ["", ""];
 	var item1 = data[0];
 	var num = data[1];
-
-	register.scan(item, quantity);
-
-	if(item1 === "SNES") {
-		item = "SNES";
-		if(num) {
-			quantity = num;
-			write(register.scan("SNES", num));
-		}
+	
+	if(item1 === "snes" && num !== undefined) {
+			write(register.scan("snes", num));
 	}
 };
 
-register.scan("SNES", 1);
-register.scan("Sega", 3);
-register.scan("Ps1", 1);
-register.scan("GameCube", 2);
+
+register.scan("snes", 1);
+register.scan("sega", 3);
+register.scan("ps1", 1);
+register.scan("gamecube", 2);
 
 console.log("Your total is "  + register.total);
 
