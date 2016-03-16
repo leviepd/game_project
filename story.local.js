@@ -127,7 +127,8 @@ block15 = {
 	name: "Basement",
 	disc: "The basement is a cold, damp place... You hear water droplets echo almost as if you are in a cavern. The basement is empty besides the piece of paper lying on the floor. There is no apparent direction you can go besides back up the stairs.",
 	exits: {},
-	items: {}
+	items: {},
+	things: {},
 };
 
 block16 = {
@@ -135,6 +136,7 @@ block16 = {
 	disc: "The basement appears to extend beyond the extremities of the house above it. You travel foreward for a few minutes without discovering any new room, or object. All you can see is the stone like walls to your sides and blackness beyond the reach of your lantern's light.",
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block17 = { 
@@ -142,6 +144,7 @@ block17 = {
 	disc: "It has now been atleast 10 minutes since you first entered the passage. There has been no other direction to go than foreward... You hear a rustle near your feet... There appears to be another note.", 
 	exits: {},
 	items: {},
+	things: {},
 
 };
 
@@ -150,6 +153,7 @@ block18= {
 	disc: "As you are walking you notice the walls at your sides disappear. You must have entered some kind room, or cavern. You can't help but noticed the amount of noise every footstep you take is making. Each step step echoes as if you are in a large canvern. All you can see is the blackness beyond the light of your lantern.",
 	exits: {},
 	items: {},
+	things: {},
 };
 // Search the cavern to find a door that leads "beyond"
 // player needs key to open the door
@@ -158,6 +162,7 @@ block19 = {
 	disc: "Beyond the door you find yourself back outdoors in the scorching sun. You are standing on the side of a rocky hill in the forrest. There is a path to East that curves up and around the hillside. Around you are all kinds of wild berry bushes. The only one you can distinguish is the black berry push just ahead of you.", 
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block20 = {
@@ -165,6 +170,7 @@ block20 = {
 	disc: "The path was extremely long. Not much to see along the way besides the surrounding forrest. It lead straight back to where you came from, the house. You are now in the back yard of the house. There is an old rusty swingset sitting in the middle of the yard. To the right of the house is a tall cedar fence that has no gate. To the left of te house is more open yard. Straight ahead is the house. There as a glass sliding door. Through the door you can see a kitchen.",
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block21 = {
@@ -172,6 +178,7 @@ block21 = {
 	disc: "What a cozy little kitchen here... Just ahead is a table that has been set. Beyond that is a narrow hallway that appears to lead to the front of the house. Just beyond the kitchen and to the left is a path that may lead to another room.", 
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block22 = {
@@ -179,6 +186,7 @@ block22 = {
 	disc: "There is fresh food on this table. Looks like Thanksgiving dinner.",
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block23 = {
@@ -186,6 +194,7 @@ block23 = {
 	disc: "At the end of a short hallway you enter a large room. The room appears to be the living/entertainment room of the house. There is a large wrap around couch that centers on a large tv mounted on the wall. This is to the left of you. Just ahead is a pool table. To the right is staircase that leads upwards.",
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block24 = {
@@ -193,6 +202,7 @@ block24 = {
 	disc: "Straight ahead is a narrows hallway. The hallway has few doors off of it. At the end of the hallway is another stairscase that leads downward.",
 	exits: {},
 	items: {},
+	things: {},
 };
 
 block25 = {
@@ -200,6 +210,7 @@ block25 = {
 	disc: "You enter into a craft room. There is a sewing machine in the corner running, but with no one using it. There is a ladder on the wall that goes up to a trapdoor on the ceiling. To the right leads to another room.",
 	exits: {},
 	items: {},
+	things: {},
 };
 
 
@@ -294,6 +305,7 @@ fight = {
 	exits: {},
 };
 
+
 // Game Data
 block1.exits.north = block2;
 block1.exits.south = block5;
@@ -314,6 +326,7 @@ block9.exits.south = block2;
 block9.exits.east = block10;
 block9.exits.upstairs = block12;
 block9.exits.north = block11;
+block11.things.restart = block1;
 block10.exits.west = block9;
 block10.items.apple = apple;
 block10.items.bottle = bottle;
@@ -419,18 +432,32 @@ handle_input = function(act) {
 
 	if(gameOver) {
 		write("Sorry, game over.");
-		return;
+		if(verb === "restart" && ood === "") {
+			current = block1;
+			inventory = current.items[ood];
+			situation();
+		} 
 	}
 	if(gameOver2) {
 		write("Congrats, you win!");
-		return;
+		if(verb === "restart" && ood === "") {
+			current = block1;
+			situation();
+		}
 	}
+
+
 
 	act = act.toLowerCase();
 	act = act.split(" ");     // act is ["", ""]
 	var verb = act[0];												
 	var ood = act[1];	     // act = ["verb", "item"]    
 	// ood object or direction
+	if(verb === "restart") {
+		current = block1;
+		situation();
+	}
+	else
 	if(verb === "go") { 
 		// User wants to go somewhere
 		if(current.exits[ood]) {
