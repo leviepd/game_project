@@ -6,9 +6,17 @@
 
 Enter Item, Quantity: <input id=command onchange="input_data(this)">
 
+<div id=output>
+</div>
+
 <p id="box"></p>
 
 <script>
+
+write = function(s) {
+	var h = document.getElementById("output").innerHTML;
+	document.getElementById("output").innerHTML = h + "<br>" + s;
+}
 
 var register = {
 	total: 0,
@@ -31,7 +39,7 @@ var register = {
 				this.add(40 * quantity);
 				break;
 		}	
-		return true;
+		return register.total;
 	},
 };
 
@@ -42,23 +50,33 @@ function input_data(element) {
 }
 
 handle_data = function(data) {
+
 	data = data.toLowerCase();
 	data = data.split(" "); // split makes two strings ["", ""];
 	var item1 = data[0];
 	var num = data[1];
 	
-	if(item1 === "snes" && num !== undefined) {
-			write(register.scan("snes", num));
+	function totalIs() {
+		write("Your total is " + register.scan(item1, num));
 	}
+
+	if(item1 === "snes" && num !== undefined) {
+		totalIs();
+	}
+	else
+	if(item1 === "sega" && num !== undefined) {
+		totalIs();
+	}
+	else 
+	if(item1 === "ps1" && num !== undefined) {
+		totalIs();
+	}
+	else 
+	if(item1 === "gamecube" && num !== undefined) {
+		totalIs();
+	}
+
 };
-
-
-register.scan("snes", 1);
-register.scan("sega", 3);
-register.scan("ps1", 1);
-register.scan("gamecube", 2);
-
-console.log("Your total is "  + register.total);
 
 </script>
 
