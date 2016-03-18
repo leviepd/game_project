@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<p>Cash Register</p>
+
+Enter Item, Quantity: <input id=command onchange="input_data(this)">
+
+<div id=output></div>
+
+</head>
+
+<body>
+
+<script>
+
+write = function(s) {
+	var h = document.getElementById("output").innerHTML;
+	document.getElementById("output").innerHTML = h + "<br>" + s;
+	// why is <br> in quatations??
+}
+
+// Register Data
+
+//trans = {
+// Total:
+	item = {
+		specs: {},
+	}
+//};
+
+snes = {
+	price: 75,
+	quantity: {},
+};
+
+item.specs = snes;
+
+function input_data(element) {
+	handle_data(element.value);
+	element.value = "";
+	element.scrollIntoView();
+}
+
+handle_data = function(data) {
+	data = data.toLowerCase();
+	data = data.split(" ");  // ["", ""]
+	entry = data[0];
+	num = data[1];
+
+	function anyNum() {
+		// generate numbers from 0 - 100
+		var i;
+		var n;
+		for(i = 0; i <= 100; i++) {
+			// will this generate a bunch of strings or numbers??
+			n = n + i;
+			quant = n;
+		}
+	}
+
+	if(entry === "snes") {
+		if(num === undefined) {
+			write("You have to enter the item, and the item's quantity.");
+		}
+		else { // num is defined
+			anyNum();
+			alert(quant);
+			if(num === quant) {
+			// How do account for quantity... it can not be a set value
+				write(snes.price * quant);
+			}
+		}
+	}
+}
+
+
+
+</script>
+
+</body>
+
+</html>
+
+
+
