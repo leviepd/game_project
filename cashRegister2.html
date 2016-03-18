@@ -76,6 +76,19 @@ handle_data = function(data) {
 	data = data.split(" ");  // ["", ""]
 	entry = data[0];
 	num = parseInt(data[1]);
+	
+	function line() {
+		prod.sub = prod.price * num;
+		prod.qty = num;
+		write("Product: " + prod.name);
+		write("Price: " + prod.price);
+		write("Quantity: " + prod.qty);
+		write("Subtotal: " + prod.sub);
+	} 
+
+	function total() {
+		
+	}
 
 	var i;
 	for(i = 0; i < products.length; i++) {
@@ -85,12 +98,7 @@ handle_data = function(data) {
 			write("You have to enter the item, and the item's quantity.");
 		}
 		else { // num is defined
-			prod.sub = prod.price * num
-			prod.qty = num;
-			write(prod.name); 
-			write(prod.price);
-			write(prod.qty);
-			write(prod.sub);
+			line();
 		}
 	}
 	}
