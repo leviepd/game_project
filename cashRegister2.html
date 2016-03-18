@@ -27,21 +27,29 @@ write = function(s) {
 snes = {
 	name: "snes",
 	price: 75,
+	sub: undefined,
+	qty: undefined,
 };
 
 sega = {
 	name: "sega",
 	price: 40,
+	sub: undefined,
+	qty: undefined,
 };
 
 gamecube = {
 	name: "gamecube",
 	price: 40,
+	sub: undefined,
+	qty: undefined,
 };
 
 ps1 = {
 	name: "ps1",
 	price: 40,
+	sub: undefined,
+	qty: undefined,
 };
 
 products = [snes, sega, gamecube, ps1];
@@ -76,8 +84,13 @@ handle_data = function(data) {
 		if(num === undefined) {
 			write("You have to enter the item, and the item's quantity.");
 		}
-		else {
-			alert(prod.name);
+		else { // num is defined
+			prod.sub = prod.price * num
+			prod.qty = num;
+			write(prod.name); 
+			write(prod.price);
+			write(prod.qty);
+			write(prod.sub);
 		}
 	}
 	}
