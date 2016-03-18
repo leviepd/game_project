@@ -22,21 +22,34 @@ write = function(s) {
 	// why is <br> in quatations??
 }
 
-// Register Data
+// Data Structure
 
-//trans = {
-// Total:
-	item = {
-		specs: {},
-	}
-//};
+item = {
+	specs: {},
+};
 
 snes = {
 	price: 75,
-	quantity: {},
 };
 
+sega = {
+	price: 40,
+};
+
+gamecube = {
+	price: 40,
+};
+
+ps1 = {
+	price: 40,
+};
+
+// Register Data
+
 item.specs = snes;
+item.specs = sega;
+item.specs = gamecube;
+item.specs = ps1;
 
 function input_data(element) {
 	handle_data(element.value);
