@@ -71,17 +71,17 @@ handle_data = function(data) {
 
 	var i;
 	for(i = 0; i < products.length; i++) {
-		var item = products[i];
-	}
-	if(entry === item) {
+		var prod = products[i];
+	if(entry === prod.name) {
 		if(num === undefined) {
 			write("You have to enter the item, and the item's quantity.");
 		}
 		else {
-			alert(products[i]);
+			alert(prod.name);
 		}
 	}
-}
+	}
+};
 
 
 
