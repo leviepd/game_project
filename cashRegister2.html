@@ -27,29 +27,21 @@ write = function(s) {
 snes = {
 	name: "snes",
 	price: 75,
-	sub: undefined,
-	qty: undefined,
 };
 
 sega = {
 	name: "sega",
 	price: 40,
-	sub: undefined,
-	qty: undefined,
 };
 
 gamecube = {
 	name: "gamecube",
 	price: 40,
-	sub: undefined,
-	qty: undefined,
 };
 
 ps1 = {
 	name: "ps1",
 	price: 40,
-	sub: undefined,
-	qty: undefined,
 };
 
 products = [snes, sega, gamecube, ps1];
@@ -77,13 +69,16 @@ handle_data = function(data) {
 	entry = data[0];
 	num = parseInt(data[1]);
 	
-	function line() {
-		prod.sub = prod.price * num;
-		prod.qty = num;
+	function line(prod) {
 		write("Product: " + prod.name);
 		write("Price: " + prod.price);
-		write("Quantity: " + prod.qty);
-		write("Subtotal: " + prod.sub);
+		// qty and sub in line
+		var l = {	
+			product: prod,
+			qty: num,
+			sub: prod.price * num,
+		}
+		order.lines.push(l);
 	} 
 
 	function total() {
@@ -98,9 +93,21 @@ handle_data = function(data) {
 			write("You have to enter the item, and the item's quantity.");
 		}
 		else { // num is defined
-			line();
+			line(prod);
 		}
 	}
+	}
+	
+	if(entry === "total") {
+		if(num === undefined) {
+			var i;
+			for(i = 0; i < order.lines.length; i++) {
+				write(order.lines[i]);
+			}
+		}
+		else { // num is defined
+		write("no number required.");
+		}
 	}
 };
 
