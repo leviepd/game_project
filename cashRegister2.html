@@ -24,32 +24,38 @@ write = function(s) {
 
 // Data Structure
 
-item = {
-	specs: {},
-};
-
 snes = {
+	name: "snes",
 	price: 75,
 };
 
 sega = {
+	name: "sega",
 	price: 40,
 };
 
 gamecube = {
+	name: "gamecube",
 	price: 40,
 };
 
 ps1 = {
+	name: "ps1",
 	price: 40,
 };
 
-// Register Data
+products = [snes, sega, gamecube, ps1];
 
-item.specs = snes;
-item.specs = sega;
-item.specs = gamecube;
-item.specs = ps1;
+order = {
+	cunstomer: "Billy Bob",
+	lines: [
+	/*	{
+		product: sega,
+		qty: 1, 
+		subtotal: 7500,
+		} */
+	]
+}
 
 function input_data(element) {
 	handle_data(element.value);
@@ -63,23 +69,16 @@ handle_data = function(data) {
 	entry = data[0];
 	num = parseInt(data[1]);
 
-	function anyNum() {
-		// generate numbers from 0 - 100
-		var i;
-		var n;
-		for(i = 0; i <= 100; i++) {
-			// will this generate a bunch of strings or numbers??
-			n = n + i;
-			quant = n;
-		}
+	var i;
+	for(i = 0; i < products.length; i++) {
+		item = products[i];
 	}
-
-	if(entry === "snes") {
+	if(entry === item) {
 		if(num === undefined) {
 			write("You have to enter the item, and the item's quantity.");
 		}
 		else {
-				write(snes.price * num);
+			alert(products[i]);
 		}
 	}
 }
