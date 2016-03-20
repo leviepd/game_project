@@ -22,7 +22,7 @@ write = function(s) {
 	// why is <br> in quatations??
 }
 
-// Data Structure
+// Data 
 
 snes = {
 	name: "snes",
@@ -46,6 +46,8 @@ ps1 = {
 
 products = [snes, sega, gamecube, ps1];
 
+// Order Holds The Data
+
 order = {
 	customer: "Billy Bob",
 	lines: [
@@ -57,11 +59,27 @@ order = {
 	]
 }
 
+// Do's... If type customer name, then create a new order
+// When finished with the order store the order in seperate location (maybe an array for now)
+// Be able to clear the order
+
+// Inputs handle_data into HTML
+
 function input_data(element) {
 	handle_data(element.value);
 	element.value = "";
 	element.scrollIntoView();
 }
+
+function new_order(a, b) {
+	a = {
+		customer: b,
+		lines: [],
+	}
+	write(a.customer);
+}
+
+// Calculates Item's Subtotal
 
 function sub_total(prod) {
 	write("Product: " + prod.name);
@@ -76,6 +94,8 @@ function sub_total(prod) {
 	// pushes l into "lines" array.
 }
 
+// Calculates Order Total
+
 total = 0;
 
 calcTot = function() {
@@ -83,9 +103,12 @@ calcTot = function() {
 	for(var i = 0; i < order.lines.length; i++) {
 		total += order.lines[i].sub;
 	}
+	write("");
 	write("Customer: " + order.customer);
 	write("Total: " + total);
 };
+
+// Handles the Data
 
 handle_data = function(data) {
 	data = data.toLowerCase();
@@ -105,13 +128,13 @@ handle_data = function(data) {
 		}
 	}
 	}
-	
 	if(entry === "subtotal") {
 		var i;
 		for(i = 0; i < order.lines.length; i++) {
-			write(order.lines[i].product.name);
-			write(order.lines[i].qty);
-			write(order.lines[i].sub);
+			write("");
+			write("Product: " + order.lines[i].product.name);
+			write("Quantity: " + order.lines[i].qty);
+			write("Subtotal: " + order.lines[i].sub);
 		}
 	}
 	else 
