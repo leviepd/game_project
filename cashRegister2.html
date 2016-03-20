@@ -47,7 +47,7 @@ ps1 = {
 products = [snes, sega, gamecube, ps1];
 
 order = {
-	cunstomer: "Billy Bob",
+	customer: "Billy Bob",
 	lines: [
 	/*	{
 		product: sega,
@@ -63,27 +63,35 @@ function input_data(element) {
 	element.scrollIntoView();
 }
 
+function sub_total(prod) {
+	write("Product: " + prod.name);
+	write("Price: " + prod.price);
+	var l = {
+		product: prod,
+		qty: num,
+		sub: prod.price * num,
+	}
+	// l for "lines"...
+	order.lines.push(l);
+	// pushes l into "lines" array.
+}
+
+total = 0;
+
+calcTot = function() {
+	var i;
+	for(var i = 0; i < order.lines.length; i++) {
+		total += order.lines[i].sub;
+	}
+	write("Customer: " + order.customer);
+	write("Total: " + total);
+};
+
 handle_data = function(data) {
 	data = data.toLowerCase();
 	data = data.split(" ");  // ["", ""]
 	entry = data[0];
 	num = parseInt(data[1]);
-	
-	function line(prod) {
-		write("Product: " + prod.name);
-		write("Price: " + prod.price);
-		// qty and sub in line
-		var l = {	
-			product: prod,
-			qty: num,
-			sub: prod.price * num,
-		}
-		order.lines.push(l);
-	} 
-
-	function total() {
-		
-	}
 
 	var i;
 	for(i = 0; i < products.length; i++) {
@@ -93,21 +101,22 @@ handle_data = function(data) {
 			write("You have to enter the item, and the item's quantity.");
 		}
 		else { // num is defined
-			line(prod);
+			sub_total(prod);
 		}
 	}
 	}
 	
+	if(entry === "subtotal") {
+		var i;
+		for(i = 0; i < order.lines.length; i++) {
+			write(order.lines[i].product.name);
+			write(order.lines[i].qty);
+			write(order.lines[i].sub);
+		}
+	}
+	else 
 	if(entry === "total") {
-		if(num === undefined) {
-			var i;
-			for(i = 0; i < order.lines.length; i++) {
-				write(order.lines[i]);
-			}
-		}
-		else { // num is defined
-		write("no number required.");
-		}
+		calcTot();
 	}
 };
 
