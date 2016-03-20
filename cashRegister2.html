@@ -94,7 +94,10 @@ function sub_total(prod) {
 
 total = 0;
 
+calc = true;
+
 calcTot = function() {
+	if(calc === true) {
 	var i;
 	for(var i = 0; i < norder.lines.length; i++) {
 		total += norder.lines[i].sub;
@@ -105,6 +108,7 @@ calcTot = function() {
 	write("Total: " + total);
 	
 	order.byName.push(norder);
+	}
 };
 
 // Handles the Data
@@ -152,6 +156,7 @@ handle_data = function(data) {
 	else 
 	if(entry === "total") {
 		calcTot();
+		calc = false;
 	}
 };
 
