@@ -49,14 +49,7 @@ products = [snes, sega, gamecube, ps1];
 // Order Holds The Data
 
 order = {
-	customer: "Billy Bob",
-	lines: [
-	/*	{
-		product: sega,
-		qty: 1, 
-		subtotal: 7500,
-		} */
-	]
+	byName: [], // contains orders byname
 }
 
 // Do's... If type customer name, then create a new order
@@ -70,15 +63,18 @@ function input_data(element) {
 	element.value = "";
 	element.scrollIntoView();
 }
-
-function new_order(a, b) {
+function new_order(a) {
 	a = {
-		customer: b,
-		lines: [],
+		customer: a,
+		lines: [], // product, qty, sub
+		tote: "",
 	}
-	write(a.customer);
+	norder = a;
+	write(norder.customer);
 }
 
+
+// Prints Item, Cost.
 // Calculates Item's Subtotal
 
 function sub_total(prod) {
@@ -90,7 +86,7 @@ function sub_total(prod) {
 		sub: prod.price * num,
 	}
 	// l for "lines"...
-	order.lines.push(l);
+	norder.lines.push(l);
 	// pushes l into "lines" array.
 }
 
@@ -100,15 +96,20 @@ total = 0;
 
 calcTot = function() {
 	var i;
-	for(var i = 0; i < order.lines.length; i++) {
-		total += order.lines[i].sub;
+	for(var i = 0; i < norder.lines.length; i++) {
+		total += norder.lines[i].sub;
 	}
+	norder.tote = total;
 	write("");
-	write("Customer: " + order.customer);
+	write("Customer: " + norder.customer);
 	write("Total: " + total);
+	
+	order.byName.push(norder);
 };
 
 // Handles the Data
+
+no = 0;
 
 handle_data = function(data) {
 	data = data.toLowerCase();
@@ -128,13 +129,24 @@ handle_data = function(data) {
 		}
 	}
 	}
+	if(entry === "customer") {
+		num = data[1];
+		no = 1;
+	}
+	else
+	if(no === 1) {
+		new_order(entry);
+		num = parseInt(data[1]);
+		no = 0;
+	}
+	else
 	if(entry === "subtotal") {
 		var i;
-		for(i = 0; i < order.lines.length; i++) {
+		for(i = 0; i < norder.lines.length; i++) {
 			write("");
-			write("Product: " + order.lines[i].product.name);
-			write("Quantity: " + order.lines[i].qty);
-			write("Subtotal: " + order.lines[i].sub);
+			write("Product: " + norder.lines[i].product.name);
+			write("Quantity: " + norder.lines[i].qty);
+			write("Subtotal: " + norder.lines[i].sub);
 		}
 	}
 	else 
