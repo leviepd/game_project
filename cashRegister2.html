@@ -13,6 +13,7 @@ Enter Item, Quantity: <input id=command onchange="input_data(this)">
 </head>
 
 <body>
+<script src=db.js></script>
 
 <script>
 
@@ -21,6 +22,18 @@ write = function(s) {
 	document.getElementById("output").innerHTML = h + "<br>" + s;
 	// why is <br> in quatations??
 }
+
+
+db = new DB(user, pass);
+
+save_order(order) {
+	db.sql("insert into orders (customer, order) values(?, ?)", [order.customer, o2j(order)], function(err) {
+		if(err) {
+			alert("Save Error: "+err);
+		}
+	});
+}
+
 
 // Data 
 
