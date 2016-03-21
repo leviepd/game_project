@@ -13,6 +13,8 @@ Enter Item, Quantity: <input id=command onchange="input_data(this)">
 </head>
 
 <body>
+<script src=jquery.js></script>
+<script src=sleepless.js></script>
 <script src=db.js></script>
 
 <script>
@@ -29,7 +31,7 @@ db = new DB("levi", "784N7cvbz2eUTenm");
 function save_order(order) {
 	db.sql("insert into orders (customer, order) values(?, ?)", [order.customer, o2j(order)], function(err) {
 		if(err) {
-			alert("Save Error: "+err);
+			alert("Save Error: "+o2j(err.error));
 		}
 	});
 }
