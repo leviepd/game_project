@@ -24,9 +24,9 @@ write = function(s) {
 }
 
 
-db = new DB(user, pass);
+db = new DB("levi", "784N7cvbz2eUTenm");
 
-save_order(order) {
+function save_order(order) {
 	db.sql("insert into orders (customer, order) values(?, ?)", [order.customer, o2j(order)], function(err) {
 		if(err) {
 			alert("Save Error: "+err);
@@ -175,6 +175,15 @@ handle_data = function(data) {
 	if(entry === "total") {
 		calcTot();
 		calc = false;
+	}
+	else
+	if(entry === "save") {
+		if(norder === undefined) {
+			write("There is no order to be saved.");
+		}
+		else { // norder has been defined
+			save_order(norder);	
+		}
 	}
 };
 
