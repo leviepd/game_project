@@ -29,12 +29,32 @@ write = function(s) {
 db = new DB("levi", "784N7cvbz2eUTenm");
 
 function save_order(order) {
-	db.sql("insert into orders (customer, order) values(?, ?)", [order.customer, o2j(order)], function(err) {
-		if(err) {
-			alert("Save Error: "+o2j(err.error));
+	db.sql("insert into orders (customer, `order`) values(?, ?)", [order.customer, o2j(order)], function(r) {
+		if(r.error) {
+			alert("Save Error: "+o2j(r.error));
 		}
 	});
 }
+
+function show_order(num) {
+	db.sql("select * from orders where id=?", [num], function(r) {
+		if(r.error) {
+			alert("Save Error: "+o2j(r.error));
+		}
+		alert(o2j(r));	
+		var o = j2o(r.records[0]);
+		// JSON to object 
+		// is norder now o?	
+		write("Name: " + o.norder.customer);
+		write("Total: " + o.norder.tote);
+		for(i = 0; i < o.norder.lines.length; i++) {
+			write(o.norder.lines[i].product);
+			write(o.norder.lines[i].qty);
+			write(o.norder.lines[i].sub);
+		}
+	});
+}
+
 
 
 // type save
@@ -185,6 +205,15 @@ handle_data = function(data) {
 		}
 		else { // norder has been defined
 			save_order(norder);	
+		}
+	}
+	else
+	if(entry === "show") {
+		if(num === undefined) {
+			write("Can not show order without specified order number.");
+		}
+		else {  // num is defined
+			show_order(num);
 		}
 	}
 };
