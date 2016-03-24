@@ -41,20 +41,43 @@ function show_order(num) {
 		if(r.error) {
 			alert("Save Error: "+o2j(r.error));
 		}
-		alert(o2j(r));	
-		var o = j2o(r.records[0]);
+		var o = j2o(r.records[0].order);
 		// JSON to object 
 		// is norder now o?	
-		write("Name: " + o.norder.customer);
-		write("Total: " + o.norder.tote);
-		for(i = 0; i < o.norder.lines.length; i++) {
-			write(o.norder.lines[i].product);
-			write(o.norder.lines[i].qty);
-			write(o.norder.lines[i].sub);
+		write("Name: " + o.customer);
+		write("Total: " + o.tote);
+		for(i = 0; i < o.lines.length; i++) {
+			write(o.lines[i].product.name);
+			write(o.lines[i].qty);
+			write(o.lines[i].sub);
 		}
 	});
 }
 
+function show_order_byname(name) {
+	db.sql("select * from orders where name=?", [name], function(r) {
+		if(r.error) {
+			alert("Error: " +o2j(r.error));
+		}
+		var x = j2o(r.records[0].order);
+		write("Name: " + o.customer);
+		write("Total: " + o.tote);
+		for(i = 0; o.lines[i].length; i++) {
+			write(o.lines[i].product.name);
+			write(o.lines[i].qty);
+			write(o.lines[i].sub);
+		}
+	});
+}
+
+function change_name(num, new_name) {
+	db.sql("update orders set customer =? where id =?", [new_name, num],
+	function(r) {
+		if(r.error) {
+			alert("Update Error: " +o2j(r.error));	
+		}
+	}); 
+}
 
 
 // type save
@@ -160,28 +183,32 @@ handle_data = function(data) {
 	data = data.split(" ");  // ["", ""]
 	entry = data[0];
 	num = parseInt(data[1]);
-
+	
 	var i;
 	for(i = 0; i < products.length; i++) {
 		var prod = products[i];
-	if(entry === prod.name) {
-		if(num === undefined) {
-			write("You have to enter the item, and the item's quantity.");
+		if(entry === prod.name) {
+			if(num === undefined) {
+				write("You have to enter the item, and the item's quantity.");
+			}
+			else { // num is defined
+				sub_total(prod);
+			}
 		}
-		else { // num is defined
-			sub_total(prod);
-		}
-	}
 	}
 	if(entry === "customer") {
-		num = data[1];
-		no = 1;
+		if(data[1] === "change") {
+			var num = parseInt(data[2]);
+			var new_name = data[3];
+			change_name(num, new_name);
+		}
 	}
-	else
-	if(no === 1) {
-		new_order(entry);
-		num = parseInt(data[1]);
-		no = 0;
+	else 
+	if(entry === "new") {
+		num = data[1];
+		if(num) {
+			new_order(num);
+		}
 	}
 	else
 	if(entry === "subtotal") {
@@ -209,12 +236,13 @@ handle_data = function(data) {
 	}
 	else
 	if(entry === "show") {
-		if(num === undefined) {
-			write("Can not show order without specified order number.");
-		}
-		else {  // num is defined
+		if(num) {
 			show_order(num);
 		}
+		else
+		if(data[1]) {
+			show_order_byname(data[1]);
+		} 
 	}
 };
 
