@@ -39,15 +39,46 @@ function show_order_byname(name) {
 		if(r.error) {
 			alert("Error: " +o2j(r.error));
 		}
-		var x = j2o(r.records[0].order);
-		write("Name: " + x.customer);
-		write("Total: " + x.tote);
-		for(i = 0; i < x.lines.length; i++) {
-			write(x.lines[i].product.name);
-			write(x.lines[i].qty);
-			write(x.lines[i].sub);
+		if(r.records.length === 0) {
+			write("No existing Record(s).");
+		}
+		else {
+			for(y = 0; y < r.records.length; y++) {
+				var x = j2o(r.records[y].order);
+				write("Name: " + x.customer);
+				write("Total: " + x.tote);
+				for(i = 0; i < x.lines.length; i++) {
+					write(x.lines[i].product.name);
+					write(x.lines[i].qty);
+					write(x.lines[i].sub);
+					write("");
+				}
+			}
 		}
 	});
+}
+
+function show_order_byletter(letter) {
+        db.sql("select * from orders where customer like?", i["%" + letter + "%"], function(r) {
+                if(r.error) {
+                        alert("Error: " +o2j(r.error));
+                }
+                if(r.records.length === 0) { // All records?
+                        write("No existing Record(s).");
+                }
+                else {
+                        for(y = 0; y < r.records.length; y++) {
+                                var x = j2o(r.records[y].order);
+				write("Name: " + x.customer);
+                               	write("Total: " + x.tote);
+                               	for(i = 0; i < x.lines.length; i++) {
+                                       	write(x.lines[i].product.name);
+                                     	write(x.lines[i].qty);
+                                       	write(x.lines[i].sub);
+                               	}
+			}
+                }
+        });
 }
 
 function change_name(num, new_name) {
@@ -120,7 +151,7 @@ function new_order(a) {
 // Prints Item, Cost.
 // Calculates Item's Subtotal
 
-function sub_total(prod) {
+function sub_total(prod, num) {
 	write("Product: " + prod.name);
 	write("Price: " + prod.price);
 	var l = {
@@ -169,25 +200,27 @@ handle_data = function(data) {
 		var prod = products[i];
 		if(entry === prod.name) {
 			if(num === undefined) {
-				write("You have to enter the item, and the item's quantity.");
+				write("Enter the item, and the item's quantity.");
 			}
 			else { // num is defined
-				sub_total(prod);
+				sub_total(prod, num);
 			}
 		}
 	}
-	if(entry === "customer") {
+	if(entry === "customer") { 
+		// changes customer name using the order id...
+		// "customer", "change" (order id), then (new name of customer)... 
 		if(data[1] === "change") {
 			var num = parseInt(data[2]);
 			var new_name = data[3];
 			change_name(num, new_name);
+			// How to make it so that can change name by useing name rather than order id #...
 		}
 	}
 	else 
 	if(entry === "new") {
-		num = data[1];
-		if(num) {
-			new_order(num);
+		if(data[1]) {
+			new_order(data[1]);
 		}
 	}
 	else
@@ -216,13 +249,17 @@ handle_data = function(data) {
 	}
 	else
 	if(entry === "show") {
-		if(num) {
+		if(num) { // shows by the order number
 			show_order(num);
 		}
 		else
-		if(data[1]) {
+		if(data[1]) { // shows order by name entry
 			show_order_byname(data[1]);
 		} 
+		else
+		if(data[1].length === 1) {
+			show_order_byletter(data[1]);
+		}
 	}
 };
 
