@@ -61,13 +61,15 @@ function show_order_search(letter) {
 function change_name(num, new_name) {
 	db.sql("select * from orders where id=? ", [num], function(r) {
 		if(r.error) {
-			alert("Update Error: " + o2j(r.error));
+			alert("Error: " + o2j(r.error));
 		}
-		db.sql("update orders set customer =? where id =?", [new_name, num], function(r) {
-			if(r.error) {
-				alert("Update Error: " +o2j(r.error));	
-			}
-		}); 
+		else {
+			db.sql("update orders set customer =? where id =?", [new_name, num], function(r) {
+				if(r.error) {
+					alert("Update Error: " +o2j(r.error));	
+				}
+			}); 
+		}
 	});
 }
 
