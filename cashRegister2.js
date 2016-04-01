@@ -64,11 +64,17 @@ function change_name(num, new_name) {
 			alert("Error: " + o2j(r.error));
 		}
 		else {
-			db.sql("update orders set customer =? where id =?", [new_name, num], function(r) {
-				if(r.error) {
-					alert("Update Error: " +o2j(r.error));	
-				}
-			}); 
+			if(r.records.length === 0) {
+				write("record not found.");
+			}
+			else {
+				var x = j2o(r.records[0].order);
+				db.sql("update orders set customer =? where id =?", [new_name, num], function(r) {
+					if(r.error) {
+						alert("Update Error: " +o2j(r.error));	
+					}
+				}); 
+			}
 		}
 	});
 }
