@@ -58,7 +58,7 @@ function show_order_search(letter) {
         });
 }
 
-function change_name(num, new_name) {
+function change_name(num, new_name) {  // changes name in the database table and the name within the object that is in the order column
 	db.sql("select * from orders where id=? ", [num], function(r) {
 		if(r.error) {
 			alert("Error: " + o2j(r.error));
@@ -69,6 +69,7 @@ function change_name(num, new_name) {
 			}
 			else {
 				var x = j2o(r.records[0].order);
+				x.customer = new_name;
 				db.sql("update orders set customer =? where id =?", [new_name, num], function(r) {
 					if(r.error) {
 						alert("Update Error: " +o2j(r.error));	
