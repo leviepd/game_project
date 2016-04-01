@@ -59,12 +59,16 @@ function show_order_search(letter) {
 }
 
 function change_name(num, new_name) {
-	db.sql("update orders set customer =? where id =?", [new_name, num],
-	function(r) {
+	db.sql("select * from orders where id=? ", [num], function(r) {
 		if(r.error) {
-			alert("Update Error: " +o2j(r.error));	
+			alert("Update Error: " + o2j(r.error));
 		}
-	}); 
+		db.sql("update orders set customer =? where id =?", [new_name, num], function(r) {
+			if(r.error) {
+				alert("Update Error: " +o2j(r.error));	
+			}
+		}); 
+	});
 }
 
 
@@ -116,6 +120,7 @@ function input_data(element) {
 }
 function new_order(a) {
 	a = {
+		customer: a,
 		lines: [], // product, qty, sub
 		tote: "",
 	}
