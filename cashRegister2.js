@@ -34,32 +34,8 @@ function show_order(num) {
 	});
 }
 
-function show_order_byname(name) {
-	db.sql("select * from orders where customer=?", [name], function(r) {
-		if(r.error) {
-			alert("Error: " +o2j(r.error));
-		}
-		if(r.records.length === 0) {
-			write("No existing Record(s).");
-		}
-		else {
-			for(y = 0; y < r.records.length; y++) {
-				var x = j2o(r.records[y].order);
-				write("Name: " + x.customer);
-				write("Total: " + x.tote);
-				for(i = 0; i < x.lines.length; i++) {
-					write(x.lines[i].product.name);
-					write(x.lines[i].qty);
-					write(x.lines[i].sub);
-					write("");
-				}
-			}
-		}
-	});
-}
-
-function show_order_byletter(letter) {
-        db.sql("select * from orders where customer like?", i["%" + letter + "%"], function(r) {
+function show_order_search(letter) {
+        db.sql("select * from orders where customer like ?", ["%" + letter + "%"], function(r) {
                 if(r.error) {
                         alert("Error: " +o2j(r.error));
                 }
@@ -69,13 +45,14 @@ function show_order_byletter(letter) {
                 else {
                         for(y = 0; y < r.records.length; y++) {
                                 var x = j2o(r.records[y].order);
-				write("Name: " + x.customer);
+				write("Name: " + r.records[y].customer);
                                	write("Total: " + x.tote);
                                	for(i = 0; i < x.lines.length; i++) {
                                        	write(x.lines[i].product.name);
                                      	write(x.lines[i].qty);
                                        	write(x.lines[i].sub);
-                               	}
+                               		write("");
+				}
 			}
                 }
         });
@@ -139,7 +116,6 @@ function input_data(element) {
 }
 function new_order(a) {
 	a = {
-		customer: a,
 		lines: [], // product, qty, sub
 		tote: "",
 	}
@@ -253,12 +229,8 @@ handle_data = function(data) {
 			show_order(num);
 		}
 		else
-		if(data[1]) { // shows order by name entry
-			show_order_byname(data[1]);
-		} 
-		else
-		if(data[1].length === 1) {
-			show_order_byletter(data[1]);
+		if(data[1]) {
+			show_order_search(data[1]);
 		}
 	}
 };
