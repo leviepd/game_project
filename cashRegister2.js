@@ -70,7 +70,7 @@ function change_name(num, new_name) {  // changes name in the database table and
 			else {  // change json to object, change object name, change object back to json, put back into database
 				var x = j2o(r.records[0].order);
 				x.customer = new_name;
-				db.sql("update orders set customer =?, order =? where id =?", [new_name, o2j(x), num], function(r) {
+				db.sql("update orders set customer =?, `order` =? where id =?", [new_name, o2j(x), num], function(r) {
 					if(r.error) {
 						alert("Update Error: " +o2j(r.error));	
 					}
