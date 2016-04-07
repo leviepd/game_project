@@ -43,10 +43,14 @@ function show_order_search(c) {
 				for(i = 0; i < r.records.length; i++) {
                         	        var id = r.records[i].id;
 					db.sql("select customer from orders where id = ?", [id], function(r) { 
-						var customer = r.records[0].customer; 
+						var customer = r.records[0].customer;
+						write("customer: " + customer); 
 						db.sql("select * from lines where order_id = ?", [id], function(r) {
 							var lines = r.records;
-							write(customer);
+							for(i = 0; i < lines.length; i++) {
+								write(lines[i]);
+								write("");
+							}
 						});
 					});
 				}
@@ -61,16 +65,3 @@ function input_data() {
 	
 };
 
-handle_data = function(d) {
-
-	d = d.toLowerCase();
-        d = d.split(" ");  // ["", ""]
-	
-	if(d[0] === undefined) {
-		write("That record does not exist.");
-	}
-	else
-	if(d[0] === n) {
-		show_order_search(n)		
-	}
-};
