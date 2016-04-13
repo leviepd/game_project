@@ -45,10 +45,10 @@ function show_order_search(c) {
 					db.sql("select customer from orders where id = ?", [id], function(r) { 
 						var customer = r.records[0].customer;
 						write("customer: " + customer); 
-						db.sql("select * from lines where order_id = ?", [id], function(r) {
-							var lines = r.records;
-							for(i = 0; i < lines.length; i++) {
-								write(lines[i]);
+						db.sql("select * from items where order_id = ?", [id], function(r) {
+							var items = r.records;
+							for(i = 0; i < items.length; i++) {
+								write(items[i].product + items[i].price + items[i].qty); // price qty id
 								write("");
 							}
 						});
