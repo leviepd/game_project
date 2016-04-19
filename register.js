@@ -14,13 +14,18 @@ function save_order(order) {
         });
 }
 
-
 function input_data() {
         x = document.getElementById("name").value;
+	x = x.toLowerCase();
+        x = x.split(" ");
+
+        if(x[0] === "hello") {
+                write("hello");
+        }
 };
 
 order = {
-	customer: cname, 
+	customer: [],  
 };
 
 new_order = function(cname) {
@@ -32,13 +37,3 @@ new_order = function(cname) {
 	cname.push(order.customer);
 }
 
-
-handle_data = function(x) {
-
-	x = x.toLowerCase();
-	x = x.split(" ");
-	if(x[0] === "hello") {
-		alert("hello");
-		write("hello");
-	}
-};
