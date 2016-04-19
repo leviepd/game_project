@@ -19,9 +19,26 @@ function input_data() {
 	x = x.toLowerCase();
         x = x.split(" ");
 
-        if(x[0] === "hello") {
-                write("hello");
+        if(x[0] === undefined && x[1] === undefined && x[2] === undefined) {
+               write("error");
         }
+	else 
+	if(x[0] !== undefined && x[1] === undefined && x[2] === undefined) {
+		write("error");
+	}
+	else 
+	if(x[0] !== undefined && x[1] !== undefined && x[2] === undefined) {
+		write("error");
+	}
+	else { // defined
+		if(x[0] === "new" && x[1] === "order" && x[2] !== undefined) {
+			new_order(x[2]);
+			write(order.customer[0].product);
+		}
+		else {
+			write("incorrect entry");
+		}
+	}
 };
 
 order = {
