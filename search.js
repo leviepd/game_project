@@ -44,14 +44,16 @@ function show_order_search(c) {
 					var id = rec.id;
 					db.sql("select customer from orders where id = ?", [id], function(r2) { // get the customer out of the record with this id
 						var customer = r2.records[0].customer; // 0 the first object in the array... selected the customer out of the object
-						write("customer: " + customer + id); 
 						db.sql("select * from items where order_id = ?", [id], function(r3) { 
 						// gets objects that have the same order_id and allows me access to data within the objects, unique ids but same order_id
-							var items = r3.records;
-							for(i = 0; i < items.length; i++) {
-								write("Product: " + items[i].product + " Price: " + items[i].price + " Quantity: " + items[i].qty); // price qty id	
-							}
-							write("");
+							if(r3.records.length !== 0) {
+								write("customer: " + customer + " Id: " + id);
+								var items = r3.records;
+								for(i = 0; i < items.length; i++) {
+									write("--- Product: " + items[i].product + " Price: " + items[i].price + " Quantity: " + items[i].qty); // price qty id	
+								}
+								write("");
+							};
 						});
 					});
 				});
