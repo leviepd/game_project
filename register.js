@@ -7,7 +7,7 @@ write = function(s) {
 db = new DB("levi", "784N7cvbz2eUTenm");
 
 function save_order(order) {
-        db.sql("insert into orders (customer, `order`) values(?, ?)", [order.customer, o2j(order)], function(r) {
+        db.sql("insert into orders (customer) values(?)", [order.customer], function(r) {
                 if(r.error) {
                         alert("Save Error: "+o2j(r.error));
                 }
@@ -16,51 +16,58 @@ function save_order(order) {
 
 norder = false;
 
-function input_data() {
-        x = document.getElementById("name").value;
-	x = x.toLowerCase();
-        x = x.split(" ");
-
-        if(x[0] === undefined && x[1] === undefined && x[2] === undefined) {
-               write("error");
-        }
-	else 
-	if(x[0] !== undefined && x[1] === undefined && x[2] === undefined) {
-		write("error");
-	}
-	else 
-	if(x[0] !== undefined && x[1] !== undefined && x[2] === undefined) {
-		write("error");
-	}
-	else
-	if(norder === true) {
-                        line_data(x[0], x[1], x[2]);
-                        write(order.line[0].data.product);
-        }
-	else { // defined
-		if(x[0] === "new" && x[1] === "order" && x[2] !== undefined) {
-			new_order(x[2]);
-			write(order.customer);
-			norder = true;
-		}
-		else {
-			write("unvalid entry");
-		}
-	}
-};
-
-new_order = function(cname) {
-	order = {
-		customer: cname,
-		line: [],
-	}
+order = {
+        customer: "",
+        lines: [
+	/* data = {
+		prod: "" ,
+		qty: "" ,
+		price: "" ,
+	   }; */ 
+	],
 }
 
-line_data = function(prod, pr, num) {
+function input_data() {
+        var x  = document.getElementById("name").value;
+	var e = document.getElementById("product");
+	var y = e.value;
+	e.value = "";
+	var e = document.getElementById("quantity");
+	var z = e.value;
+	e.value = "";
+	e = document.getElementById("price");
+	var p = e.value;
+	e.value = "";
+	
+	if(x === "") {
+		write("invalid value, must enter customer name.");
+	}
+	else {
+		order.customer = x;
+	}
+	if(y === "") {
+		write("invalid value, must enter product.");
+	}
+	if(z === "") {
+		write("invalid value, must enter quantity.");
+	}
+	if(p === "") {
+		write("invalid value, must enter price.");
+	}
+	
+	line_data(y, z, p);
+	for(i = 0; i < order.lines.length; i++) { 
+	write("--- Product: " + order.lines[i].product + " Quantity: " + order.lines[i].qty + " Price: " + order.lines[i].price);	
+	}
+	write("");
+	
+};
+
+line_data = function(prod, num, pr) {
 	data = {
 		product: prod,
-		price: pr,
 		qty: num,
+		price: pr,
 	}
-	order.line.push(data);
+	order.lines.push(data);
 }
