@@ -14,6 +14,8 @@ function save_order(order) {
         });
 }
 
+norder = false;
+
 function input_data() {
         x = document.getElementById("name").value;
 	x = x.toLowerCase();
@@ -30,27 +32,35 @@ function input_data() {
 	if(x[0] !== undefined && x[1] !== undefined && x[2] === undefined) {
 		write("error");
 	}
+	else
+	if(norder === true) {
+                        line_data(x[0], x[1], x[2]);
+                        write(order.line[0].data.product);
+        }
 	else { // defined
 		if(x[0] === "new" && x[1] === "order" && x[2] !== undefined) {
 			new_order(x[2]);
-			write(order.customer[0].product);
+			write(order.customer);
+			norder = true;
 		}
 		else {
-			write("incorrect entry");
+			write("unvalid entry");
 		}
 	}
-};
-
-order = {
-	customer: [],  
 };
 
 new_order = function(cname) {
-	cname = {
-		product: p,
-		price: pr,
-		qty: q,
+	order = {
+		customer: cname,
+		line: [],
 	}
-	cname.push(order.customer);
 }
 
+line_data = function(prod, pr, num) {
+	data = {
+		product: prod,
+		price: pr,
+		qty: num,
+	}
+	order.line.push(data);
+}
