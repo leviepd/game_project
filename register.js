@@ -34,7 +34,6 @@ order = {
 }
 
 function input_data() {
-        var x  = document.getElementById("name").value;
 	var e = document.getElementById("product");
 	var y = e.value;
 	e.value = "";
@@ -70,10 +69,27 @@ function input_data() {
 };
 
 click_save = function() {
+	var x  = document.getElementById("name").value;
+	if(x === "") {
+                write("invalid value, must enter customer name.");
+        }
+        else {
+                order.customer = x;
+                alert(order.customer);
+        }
+        if(y === "") {
+                write("invalid value, must enter product.");
+        }
+        if(z === "") {
+                write("invalid value, must enter quantity.");
+        }
+        if(p === "") {
+                write("invalid value, must enter price.");
+        }	
 	if(order.customer !== "") {
 		save_order(order);
        		for(i = 0; i < order.lines.length; i++) {
-			alert(customer.lines[i].order_id);
+			alert(order.customer.lines[i].order_id);
         		break;
 		}
 	}
