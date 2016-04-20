@@ -6,8 +6,9 @@ write = function(s) {
 
 db = new DB("levi", "784N7cvbz2eUTenm");
 
-function save_order(order) {
-        db.sql("insert into orders (customer) values(?)", [order.customer], function(r) {
+function save_order() {
+        alert(order.customer);
+	db.sql("insert into orders (customer) values(?)", [order.customer], function(r) {
                 if(r.error) {
                         alert("Save Error: "+o2j(r.error));
                 }
@@ -20,8 +21,6 @@ function save_order(order) {
 		}
         });
 }
-
-norder = false;
 
 order = {
         customer: "",
@@ -70,11 +69,13 @@ function input_data() {
 	write("");
 };
 
-if(order.customer !== "") {
-	save_order(order);
-        for(i = 0; i < order.lines.length; i++) {
-		alert(customer.lines[i].order_id);
-        	break;
+click_save = function() {
+	if(order.customer !== "") {
+		save_order(order);
+       		for(i = 0; i < order.lines.length; i++) {
+			alert(customer.lines[i].order_id);
+        		break;
+		}
 	}
 };
 
