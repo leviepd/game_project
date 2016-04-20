@@ -43,7 +43,20 @@ function input_data() {
 	e = document.getElementById("price");
 	var p = e.value;
 	e.value = "";
-	
+
+	if(y === "") {
+                write("invalid value, must enter product.");
+                return;
+        }
+        if(z === "") {
+                write("invalid value, must enter quantity.");
+                return;
+        }
+        if(p === "") {
+                write("invalid value, must enter price.");
+                return;
+        }
+
 	line_data(y, z, p);
 
 	for(i = 0; i < order.lines.length; i++) { 
@@ -61,24 +74,10 @@ click_save = function() {
         else {
                 order.customer = x;
         }
-        if(y === "") {
-                write("invalid value, must enter product.");
-        	return;
-	}
-        if(z === "") {
-                write("invalid value, must enter quantity.");
-       		return;
-	}
-        if(p === "") {
-                write("invalid value, must enter price.");
-        	return;
-	}	
-	if(order.customer !== "") {
-		save_order(order);
-       		for(i = 0; i < order.lines.length; i++) {
-			alert(order.customer.lines[i].order_id);
-        		break;
-		}
+	save_order(order);
+       	for(i = 0; i < order.lines.length; i++) {
+		alert(order.customer.lines[i].order_id);
+        	break;
 	}
 };
 
