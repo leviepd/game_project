@@ -11,6 +11,13 @@ function save_order(order) {
                 if(r.error) {
                         alert("Save Error: "+o2j(r.error));
                 }
+		else {
+			var id = r.insert_id
+			for(i = 0; i < order.lines.length; i++) {
+         	         	order.lines[i].order_id = id;
+               			write(order[i].order_id);
+        		}
+		}
         });
 }
 
@@ -44,6 +51,7 @@ function input_data() {
 	}
 	else {
 		order.customer = x;
+		alert(order.customer);
 	}
 	if(y === "") {
 		write("invalid value, must enter product.");
@@ -53,14 +61,21 @@ function input_data() {
 	}
 	if(p === "") {
 		write("invalid value, must enter price.");
-	}
+	} 
 	
 	line_data(y, z, p);
 	for(i = 0; i < order.lines.length; i++) { 
 	write("--- Product: " + order.lines[i].product + " Quantity: " + order.lines[i].qty + " Price: " + order.lines[i].price);	
 	}
 	write("");
-	
+};
+
+if(order.customer !== "") {
+	save_order(order.customer);
+        for(i = 0; i < order.lines.length; i++) {
+		alert(customer.lines[i].order_id);
+        	break;
+	}
 };
 
 line_data = function(prod, num, pr) {
