@@ -7,16 +7,16 @@ write = function(s) {
 db = new DB("levi", "784N7cvbz2eUTenm");
 
 function save_order() {
-        alert(order.customer);
 	db.sql("insert into orders (customer) values(?)", [order.customer], function(r) {
                 if(r.error) {
                         alert("Save Error: "+o2j(r.error));
                 }
 		else {
 			var id = r.insert_id
-			for(i = 0; i < order.lines.length; i++) {
+			alert(id);
+			for(var i = 0; i < order.lines.length; i++) {
          	         	order.lines[i].order_id = id;
-               			write(order[i].order_id);
+               			write(order.lines[i].order_id);
         		}
 		}
         });
@@ -73,12 +73,12 @@ click_save = function() {
 	}
         else {
                 order.customer = x;
-        }
-	save_order(order);
-       	for(i = 0; i < order.lines.length; i++) {
-		alert(order.customer.lines[i].order_id);
-        	break;
-	}
+		save_order();
+       		for(var i = 0; i < order.lines.length; i++) {
+			alert(order.lines[i].order_id);
+        		break;
+		}
+	};
 };
 
 line_data = function(prod, num, pr) {
