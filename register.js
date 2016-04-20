@@ -17,15 +17,15 @@ function save_order() {
 			for(var i = 0; i < order.lines.length; i++) {
          	         	order.lines[i].order_id = id;
                			write(order.lines[i].order_id);
-				db.sql("insert into lines (product, price, qty) values(?, ?, ?)", [order.lines[i].product, order.lines[i].price, order.lines[i].qty], function(r) {
+				db.sql("insert into lines where order_id = ? (product, price, qty) values(?, ?, ?)", [order.lines[i].product, order.lines[i].price, order.lines[i].qty], function(r) {
 					if(r.error) {
 						alert(("Save Error: " + o2j(r.error));
 					}	
-        		}
+        			});
+			}	
 		}
-        });
+	});	
 }
-
 order = {
         customer: "",
         lines: [
