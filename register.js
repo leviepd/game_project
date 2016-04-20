@@ -71,7 +71,7 @@ function input_data() {
 };
 
 if(order.customer !== "") {
-	save_order(order.customer);
+	save_order(order);
         for(i = 0; i < order.lines.length; i++) {
 		alert(customer.lines[i].order_id);
         	break;
